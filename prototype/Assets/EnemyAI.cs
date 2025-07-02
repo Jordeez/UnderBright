@@ -1,3 +1,5 @@
+/*
+
 //This Script Can either be used for flying creatures or movement type enemy
 using System.Collections.Generic;
 using System.Collections;
@@ -93,3 +95,5 @@ public class EnemyAI : MonoBehaviour
     }
 
 }
+
+*/

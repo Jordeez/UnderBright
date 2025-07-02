@@ -6,9 +6,13 @@ public class Chase_Attack : MonoBehaviour
 {
     public float distance;
     public Transform Player;
-    public NavMeshAgent navMeshAgent;
+    public UnityEngine.AI.NavMeshAgent navMeshAgent;
+
+    private Animator anim;
+
     void Start()
     {
+        anim = GetComponent<Animator>();
         Update();
     }
 
@@ -23,17 +27,17 @@ public class Chase_Attack : MonoBehaviour
 
         if (navMeshAgent.velocity.magnitude > 1)
         {
-            Anim.SetInteger("Mode", 1); //chases the player (animation)
+            anim.SetInteger("Mode", 1); //chases the player (animation)
         }
         else
         {
             if (distance > 5)
             {
-                Anim.SetInteger("Mode", 0); //enemy stays dormant after the player is chased
+                anim.SetInteger("Mode", 0); //enemy stays dormant after the player is chased
             }
             else
             {
-                Anim.SetInteger("Mode", 2); //enemy attacks the player
+                anim.SetInteger("Mode", 2); //enemy attacks the player
             }
         }
     }
