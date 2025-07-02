@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class movement : MonoBehaviour
 {
@@ -12,16 +11,14 @@ public class movement : MonoBehaviour
     private Animator anim;
     private SpriteRenderer spriteRenderer;
 
-    // Combo system
+    // Combo system variables
     private bool isAttacking = false;
-    private bool attack1Done = false;
-    private bool canChainAttack = false;
 
-    private float comboWindowTimer = 0f;
-    public float comboWindowTime = 0.4f;
-
-    public float attackCooldownTime = 0.3f;
-    private float attackCooldownTimer = 0f;
+    // Attack input buffer variables
+    private float inputBufferTimer = 0f;
+    private bool attack1Buffered = false;
+    private bool attack2Buffered = false;
+    public float inputBufferTime = 0.25f; // Buffer time for inputs (time between attacks)
 
     void Start()
     {
@@ -31,10 +28,10 @@ public class movement : MonoBehaviour
 
     void Update()
     {
-        // Handle cooldown and prevent spamming of attacks
-        if (attackCooldownTimer > 0f)
+        // Handle input buffer timer
+        if (inputBufferTimer > 0f)
         {
-            attackCooldownTimer -= Time.deltaTime;
+            inputBufferTimer -= Time.deltaTime;
         }
 
         HandleMovement();
@@ -74,52 +71,41 @@ public class movement : MonoBehaviour
 
     void HandleAttackCombo()
     {
-        // Don't allow attacks during cooldown or while already attacking
-        if (attackCooldownTimer > 0f || isAttacking) return;
+        if (inputBufferTimer <= 0f)
+        {
+            // If no input in buffer, we clear the buffered flags
+            attack1Buffered = false;
+            attack2Buffered = false;
+        }
 
+        // If player presses attack (J) and we're grounded
         if (Input.GetKeyDown(KeyCode.J) && isGrounded)
         {
             if (!isAttacking)
             {
-                anim.SetTrigger("attack1");
-                isAttacking = true;
-                attackCooldownTimer = attackCooldownTime; // Start cooldown after attack
-            }
-            else if (attack1Done && canChainAttack)
-            {
-                anim.SetTrigger("attack2");
-                ResetCombo();
-                return;
-            }
-        }
-
-        // If attack1 is done, start a combo window for attack2
-        if (attack1Done)
-        {
-            comboWindowTimer -= Time.deltaTime;
-
-            if (comboWindowTimer <= 0f)
-            {
-                ResetCombo();
+                // First attack input
+                if (!attack1Buffered)
+                {
+                    attack1Buffered = true;
+                    anim.SetTrigger("attack1");
+                    inputBufferTimer = inputBufferTime; // Set buffer time for subsequent input
+                }
+                // If we already buffered attack1, buffer attack2
+                else if (attack1Buffered && !attack2Buffered)
+                {
+                    attack2Buffered = true;
+                    anim.SetTrigger("attack2");
+                    ResetAttackBuffer();
+                }
             }
         }
     }
 
-    // Animation Event: Call this at the END of Attack1
-    public void OnAttack1End()
+    void ResetAttackBuffer()
     {
-        isAttacking = false;
-        attack1Done = true;
-        canChainAttack = true;
-        comboWindowTimer = comboWindowTime;  // Start combo window for attack2
-    }
-
-    void ResetCombo()
-    {
-        isAttacking = false;
-        attack1Done = false;
-        canChainAttack = false;
-        comboWindowTimer = 0f;
+        attack1Buffered = false;
+        attack2Buffered = false;
+        inputBufferTimer = 0f; // Reset input buffer timer
     }
 
     void FlipSprite(bool faceLeft)

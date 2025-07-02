@@ -85,11 +85,12 @@ public class EnemyChase_Attack : MonoBehaviour
             attackSize, 
             0f, 
             playerLayer);
-
+        /*
         foreach (Collider2D player in hitPlayers)
         {
             player.GetComponent<PlayerHealth>().TakeDamage(attackDamage);
         }
+        */
     }
 
     private void Idle()
