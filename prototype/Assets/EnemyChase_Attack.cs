@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Chase_Attack : MonoBehaviour
 {
-     [Header("Settings")]
+    [Header("Settings")]
     public float chaseRange = 10f;
     public float attackRange = 2f;
     public float attackCooldown = 2f;
@@ -31,7 +31,7 @@ public class Chase_Attack : MonoBehaviour
     {
         if (!player) return;
 
-        float distance = Vector3.Distance(transform.position, player.position);
+        float distance = Vector2.Distance(transform.position, player.position);
 
         // Detection and Chase
         if (distance <= chaseRange)
