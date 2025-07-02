@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Chase_Attack : MonoBehaviour
+public class EnemyChase_Attack : MonoBehaviour
 {
     [Header("Settings")]
     public float chaseRange = 10f;
@@ -11,7 +11,7 @@ public class Chase_Attack : MonoBehaviour
     
     [Header("References")]
     public Transform player;
-    public NavMeshAgent agent;
+    public UnityEngine.AI.NavMeshAgent agent;
     public Animator anim;
 
     private float lastAttackTime;
@@ -20,7 +20,7 @@ public class Chase_Attack : MonoBehaviour
     private void Start()
     {
         // Auto-get components if not assigned
-        if (!agent) agent = GetComponent<NavMeshAgent>();
+        if (!agent) agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         if (!anim) anim = GetComponent<Animator>();
         
         // Find player if not assigned

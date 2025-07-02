@@ -23,7 +23,6 @@ public class movement : MonoBehaviour
     public float attackCooldownTime = 0.3f;
     private float attackCooldownTimer = 0f;
 
-
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -32,12 +31,14 @@ public class movement : MonoBehaviour
 
     void Update()
     {
+        // Handle cooldown and prevent spamming of attacks
         if (attackCooldownTimer > 0f)
+        {
             attackCooldownTimer -= Time.deltaTime;
+        }
 
         HandleMovement();
         HandleAttackCombo();
-
     }
 
     void HandleMovement()
@@ -73,8 +74,8 @@ public class movement : MonoBehaviour
 
     void HandleAttackCombo()
     {
-        // Don't allow attacks during cooldown
-        if (attackCooldownTimer > 0f) return;
+        // Don't allow attacks during cooldown or while already attacking
+        if (attackCooldownTimer > 0f || isAttacking) return;
 
         if (Input.GetKeyDown(KeyCode.J) && isGrounded)
         {
@@ -82,6 +83,7 @@ public class movement : MonoBehaviour
             {
                 anim.SetTrigger("attack1");
                 isAttacking = true;
+                attackCooldownTimer = attackCooldownTime; // Start cooldown after attack
             }
             else if (attack1Done && canChainAttack)
             {
@@ -91,6 +93,7 @@ public class movement : MonoBehaviour
             }
         }
 
+        // If attack1 is done, start a combo window for attack2
         if (attack1Done)
         {
             comboWindowTimer -= Time.deltaTime;
@@ -102,14 +105,13 @@ public class movement : MonoBehaviour
         }
     }
 
-
     // Animation Event: Call this at the END of Attack1
     public void OnAttack1End()
     {
         isAttacking = false;
         attack1Done = true;
         canChainAttack = true;
-        comboWindowTimer = comboWindowTime;
+        comboWindowTimer = comboWindowTime;  // Start combo window for attack2
     }
 
     void ResetCombo()
