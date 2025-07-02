@@ -20,11 +20,6 @@ public class movement : MonoBehaviour
     private float comboWindowTimer = 0f;
     public float comboWindowTime = 0.4f;
 
-    // Input buffer
-    private bool bufferedAttack = false;
-    private float inputBufferTimer = 0f;
-    public float inputBufferTime = 0.25f;
-
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -35,7 +30,6 @@ public class movement : MonoBehaviour
     {
         HandleMovement();
         HandleAttackCombo();
-        HandleInputBufferTimer();
     }
 
     void HandleMovement()
@@ -71,19 +65,18 @@ public class movement : MonoBehaviour
 
     void HandleAttackCombo()
     {
-        if (Input.GetKeyDown(KeyCode.J))
+        if (Input.GetKeyDown(KeyCode.J) && isGrounded)
         {
             if (!isAttacking)
             {
-                // Only trigger attack1 if not already attacking
                 anim.SetTrigger("attack1");
                 isAttacking = true;
-                ConsumeBufferedInput();
             }
-            else
+            else if (attack1Done && canChainAttack)
             {
-                // Buffer input for attack2
-                BufferAttackInput();
+                anim.SetTrigger("attack2");
+                ResetCombo();
+                return;
             }
         }
 
@@ -91,40 +84,9 @@ public class movement : MonoBehaviour
         {
             comboWindowTimer -= Time.deltaTime;
 
-            if (canChainAttack && bufferedAttack)
-            {
-                anim.SetTrigger("attack2");
-                ResetCombo();
-                return;
-            }
-
             if (comboWindowTimer <= 0f)
             {
                 ResetCombo();
-            }
-        }
-    }
-
-    void BufferAttackInput()
-    {
-        bufferedAttack = true;
-        inputBufferTimer = inputBufferTime;
-    }
-
-    void ConsumeBufferedInput()
-    {
-        bufferedAttack = false;
-        inputBufferTimer = 0f;
-    }
-
-    void HandleInputBufferTimer()
-    {
-        if (bufferedAttack)
-        {
-            inputBufferTimer -= Time.deltaTime;
-            if (inputBufferTimer <= 0f)
-            {
-                bufferedAttack = false;
             }
         }
     }
@@ -144,7 +106,6 @@ public class movement : MonoBehaviour
         attack1Done = false;
         canChainAttack = false;
         comboWindowTimer = 0f;
-        ConsumeBufferedInput();
     }
 
     void FlipSprite(bool faceLeft)
