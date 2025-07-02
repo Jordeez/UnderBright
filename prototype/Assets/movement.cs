@@ -20,6 +20,10 @@ public class movement : MonoBehaviour
     private float comboWindowTimer = 0f;
     public float comboWindowTime = 0.4f;
 
+    public float attackCooldownTime = 0.3f;
+    private float attackCooldownTimer = 0f;
+
+
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -28,8 +32,12 @@ public class movement : MonoBehaviour
 
     void Update()
     {
+        if (attackCooldownTimer > 0f)
+            attackCooldownTimer -= Time.deltaTime;
+
         HandleMovement();
         HandleAttackCombo();
+
     }
 
     void HandleMovement()
@@ -65,6 +73,9 @@ public class movement : MonoBehaviour
 
     void HandleAttackCombo()
     {
+        // Don't allow attacks during cooldown
+        if (attackCooldownTimer > 0f) return;
+
         if (Input.GetKeyDown(KeyCode.J) && isGrounded)
         {
             if (!isAttacking)
@@ -90,6 +101,7 @@ public class movement : MonoBehaviour
             }
         }
     }
+
 
     // Animation Event: Call this at the END of Attack1
     public void OnAttack1End()
