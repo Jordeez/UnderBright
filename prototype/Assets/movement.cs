@@ -40,7 +40,7 @@ public class movement : MonoBehaviour
 
     void HandleMovement()
     {
-        Vector2 velocity = myRigidbody.velocity;
+        Vector2 velocity = myRigidbody.linearVelocity;
         anim.SetBool("isRunning", Mathf.Abs(velocity.x) > 0.1f);
 
         if (Input.GetKey(KeyCode.A))
@@ -66,7 +66,7 @@ public class movement : MonoBehaviour
             anim.SetBool("isGrounded", false);
         }
 
-        myRigidbody.velocity = velocity;
+        myRigidbody.linearVelocity = velocity;
     }
 
     void HandleAttackCombo()

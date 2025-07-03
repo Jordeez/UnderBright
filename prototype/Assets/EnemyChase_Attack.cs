@@ -47,11 +47,13 @@ public class EnemyChase_Attack : MonoBehaviour
             }
             else // Chase if not attacking
             {
+                anim.SetBool("isHostile", true);
                 ChasePlayer();
             }
         }
         else // Idle if player not detected
         {
+            anim.SetBool("isHostile", false);
             Idle();
         }
 
@@ -66,17 +68,17 @@ public class EnemyChase_Attack : MonoBehaviour
         // Only move if outside stopping distance
         if (Vector2.Distance(transform.position, player.position) > stoppingDistance)
         {
-            rb.velocity = new Vector2(direction.x * chaseSpeed, rb.velocity.y);
+            rb.linearVelocity = new Vector2(direction.x * chaseSpeed, rb.linearVelocity.y);
         }
         else
         {
-            rb.velocity = new Vector2(0, rb.velocity.y);
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         }
     }
 
     private void Attack()
     {
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
         lastAttackTime = Time.time;
         
         // Check for player in attack range
@@ -95,12 +97,12 @@ public class EnemyChase_Attack : MonoBehaviour
 
     private void Idle()
     {
-        rb.velocity = new Vector2(0, rb.velocity.y);
+        rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
     }
 
     private void UpdateAnimations(float distanceToPlayer)
     {
-        bool isMoving = Mathf.Abs(rb.velocity.x) > 0.1f;
+        bool isMoving = Mathf.Abs(rb.linearVelocity.x) > 0.1f;
         bool isAttacking = Time.time < lastAttackTime + 0.5f; // Attack animation duration
         
         anim.SetBool("IsMoving", isMoving);
