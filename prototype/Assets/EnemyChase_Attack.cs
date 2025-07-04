@@ -40,6 +40,7 @@ public class EnemyChase_Attack : MonoBehaviour
         // Detection
         if (distanceToPlayer <= detectionRange)
         {
+            anim.SetBool("isHostile", true);
             // Attack if in range
             if (distanceToPlayer <= attackRange && Time.time > lastAttackTime + attackCooldown)
             {

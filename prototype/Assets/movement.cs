@@ -20,6 +20,10 @@ public class movement : MonoBehaviour
     private bool attack2Buffered = false;
     public float inputBufferTime = 0.25f; // Buffer time for inputs (time between attacks)
 
+    public Transform attackPoint;
+    public float attackRange = 0.5f;
+    public LayerMask enemyLayers; 
+
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -81,6 +85,7 @@ public class movement : MonoBehaviour
         // If player presses attack (J) and we're grounded
         if (Input.GetKeyDown(KeyCode.J) && isGrounded)
         {
+            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
             if (!isAttacking)
             {
                 // First attack input
@@ -88,6 +93,10 @@ public class movement : MonoBehaviour
                 {
                     attack1Buffered = true;
                     anim.SetTrigger("attack1");
+                    foreach (Collider2D enemy in hitEnemies)
+                    {
+                        Debug.Log("enemy hit");
+                    }
                     inputBufferTimer = inputBufferTime; // Set buffer time for subsequent input
                 }
                 // If we already buffered attack1, buffer attack2
@@ -99,6 +108,15 @@ public class movement : MonoBehaviour
                 }
             }
         }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if(attackPoint == null)
+        {
+            return;
+        }
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 
     void ResetAttackBuffer()
