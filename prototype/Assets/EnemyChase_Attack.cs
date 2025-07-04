@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(Animator))]
+[RequireComponent(typeof(Rigidbody2D), typeof(Animator), typeof(EnemyAI))]
 public class EnemyChase_Attack : MonoBehaviour
 {
     [Header("Detection Settings")]
     [SerializeField] private float detectionRange = 5f;
     [SerializeField] private float attackRange = 1f;
     [SerializeField] private LayerMask playerLayer;
-    [SerializeField] private float rearDetectionMultiplier = 0.5f;
+    [SerializeField] [Range(0,1)] private float rearDetectionReduction = 0.5f;
 
-    [Header("Movement Settings")]
+    [Header("Chase Settings")]
     [SerializeField] private float chaseSpeed = 3f;
     [SerializeField] private float stoppingDistance = 0.5f;
     
@@ -24,21 +24,20 @@ public class EnemyChase_Attack : MonoBehaviour
     // Components
     private Rigidbody2D rb;
     private Animator anim;
+    private EnemyAI enemyAI;
     private Transform player;
-    private EnemyPatrol patrolController;
 
     // State variables
     private float lastAttackTime;
-    private bool facingRight = true;
     private bool isChargingAttack;
     private float chargeStartTime;
-    private float currentDetectionRange;
+    private bool wasPatrolling;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        patrolController = GetComponent<EnemyPatrol>();
+        enemyAI = GetComponent<EnemyAI>();
         player = GameObject.FindWithTag("Player")?.transform;
     }
 
@@ -46,74 +45,79 @@ public class EnemyChase_Attack : MonoBehaviour
     {
         if (player == null) return;
 
-        UpdateDetectionState();
-        HandleEnemyBehavior();
-        UpdateAnimations();
-    }
-
-    private void UpdateDetectionState()
-    {
-        Vector2 toPlayer = player.position - transform.position;
-        float dotProduct = Vector2.Dot(toPlayer.normalized, facingRight ? Vector2.right : Vector2.left);
-        currentDetectionRange = dotProduct < 0 ? detectionRange * rearDetectionMultiplier : detectionRange;
-    }
-
-    private void HandleEnemyBehavior()
-    {
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+        bool playerInFront = IsPlayerInFront();
 
-        if (distanceToPlayer <= currentDetectionRange)
+        float effectiveDetectionRange = playerInFront ? detectionRange : detectionRange * rearDetectionReduction;
+
+        if (distanceToPlayer <= effectiveDetectionRange)
         {
-            patrolController?.SetPatrolling(false);
+            // Disable patrolling when player is detected
+            if (enemyAI.enabled)
+            {
+                wasPatrolling = true;
+                enemyAI.enabled = false;
+            }
 
-            if (ShouldStartAttack(distanceToPlayer))
+            if (ShouldAttack(distanceToPlayer))
             {
-                StartCharge();
+                HandleAttack();
             }
-            else if (isChargingAttack)
-            {
-                ChargeAttack();
-            }
-            else
+            else if (!isChargingAttack)
             {
                 ChasePlayer(distanceToPlayer);
             }
         }
         else
         {
-            patrolController?.SetPatrolling(true);
+            // Re-enable patrolling when player is out of range
+            if (wasPatrolling)
+            {
+                enemyAI.enabled = true;
+                wasPatrolling = false;
+            }
             Idle();
-            isChargingAttack = false;
         }
+
+        UpdateAnimations();
     }
 
-    private bool ShouldStartAttack(float distanceToPlayer)
+    private bool IsPlayerInFront()
     {
-        return !isChargingAttack && 
-               distanceToPlayer <= attackRange && 
+        Vector2 toPlayer = (player.position - transform.position).normalized;
+        return Vector2.Dot(toPlayer, transform.right) > 0;
+    }
+
+    private bool ShouldAttack(float distanceToPlayer)
+    {
+        return distanceToPlayer <= attackRange && 
                Time.time > lastAttackTime + attackCooldown;
+    }
+
+    private void HandleAttack()
+    {
+        if (!isChargingAttack)
+        {
+            StartCharge();
+        }
+        else if (Time.time >= chargeStartTime + chargeTime)
+        {
+            ExecuteAttack();
+        }
     }
 
     private void StartCharge()
     {
         isChargingAttack = true;
         chargeStartTime = Time.time;
-        rb.linearVelocity = Vector2.zero;
+        rb.velocity = Vector2.zero;
     }
 
-    private void ChargeAttack()
-    {
-        if (Time.time >= chargeStartTime + chargeTime)
-        {
-            Attack();
-            isChargingAttack = false;
-        }
-    }
-
-    private void Attack()
+    private void ExecuteAttack()
     {
         lastAttackTime = Time.time;
-        
+        isChargingAttack = false;
+
         Collider2D[] hitPlayers = Physics2D.OverlapBoxAll(
             transform.position, 
             attackSize, 
@@ -131,40 +135,34 @@ public class EnemyChase_Attack : MonoBehaviour
         if (distanceToPlayer > stoppingDistance)
         {
             Vector2 direction = (player.position - transform.position).normalized;
-            rb.linearVelocity = new Vector2(direction.x * chaseSpeed, rb.linearVelocity.y);
-            FlipSprite(direction.x);
+            rb.velocity = new Vector2(direction.x * chaseSpeed, rb.velocity.y);
+            
+            // Flip based on movement direction
+            transform.localScale = new Vector3(
+                direction.x > 0 ? -1 : 1, 
+                1, 
+                1);
         }
         else
         {
-            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            rb.velocity = Vector2.zero;
         }
     }
 
     private void Idle()
     {
-        rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+        rb.velocity = Vector2.zero;
+        isChargingAttack = false;
     }
 
     private void UpdateAnimations()
     {
-        bool isMoving = Mathf.Abs(rb.linearVelocity.x) > 0.1f && !isChargingAttack;
+        bool isMoving = Mathf.Abs(rb.velocity.x) > 0.1f;
         bool isAttacking = Time.time < lastAttackTime + 0.5f;
-        bool isCharging = isChargingAttack && Time.time < chargeStartTime + chargeTime;
         
-        anim.SetBool("IsMoving", isMoving);
+        anim.SetBool("IsMoving", isMoving && !isChargingAttack);
         anim.SetBool("IsAttacking", isAttacking);
-        anim.SetBool("IsCharging", isCharging);
-    }
-
-    private void FlipSprite(float directionX)
-    {
-        if ((directionX > 0 && !facingRight) || (directionX < 0 && facingRight))
-        {
-            facingRight = !facingRight;
-            Vector3 scale = transform.localScale;
-            scale.x *= -1;
-            transform.localScale = scale;
-        }
+        anim.SetBool("IsCharging", isChargingAttack);
     }
 
     private void OnDrawGizmosSelected()
@@ -173,10 +171,9 @@ public class EnemyChase_Attack : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectionRange);
 
-        // Forward detection area
+        // Rear detection range
         Gizmos.color = new Color(1f, 0.5f, 0f);
-        Vector3 forwardCenter = transform.position + (facingRight ? Vector3.right : Vector3.left) * detectionRange * 0.25f;
-        Gizmos.DrawWireSphere(forwardCenter, detectionRange * 0.5f);
+        Gizmos.DrawWireSphere(transform.position, detectionRange * rearDetectionReduction);
 
         // Attack range
         Gizmos.color = Color.red;
