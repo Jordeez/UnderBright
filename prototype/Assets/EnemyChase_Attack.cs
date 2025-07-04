@@ -110,7 +110,7 @@ public class EnemyChase_Attack : MonoBehaviour
     {
         isChargingAttack = true;
         chargeStartTime = Time.time;
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
     }
 
     private void ExecuteAttack()
@@ -126,7 +126,8 @@ public class EnemyChase_Attack : MonoBehaviour
 
         foreach (Collider2D playerCollider in hitPlayers)
         {
-            playerCollider.GetComponent<PlayerHealth>()?.TakeDamage(attackDamage);
+            // playerCollider.GetComponent<PlayerHealth>()?.TakeDamage(attackDamage);
+            Debug.Log("Player hit");
         }
     }
 
@@ -135,29 +136,29 @@ public class EnemyChase_Attack : MonoBehaviour
         if (distanceToPlayer > stoppingDistance)
         {
             Vector2 direction = (player.position - transform.position).normalized;
-            rb.velocity = new Vector2(direction.x * chaseSpeed, rb.velocity.y);
+            rb.linearVelocity = new Vector2(direction.x * chaseSpeed, rb.linearVelocity.y);
             
             // Flip based on movement direction
             transform.localScale = new Vector3(
-                direction.x > 0 ? -1 : 1, 
-                1, 
+                direction.x > 0 ? -15 : 15, 
+                15, 
                 1);
         }
         else
         {
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
         }
     }
 
     private void Idle()
     {
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
         isChargingAttack = false;
     }
 
     private void UpdateAnimations()
     {
-        bool isMoving = Mathf.Abs(rb.velocity.x) > 0.1f;
+        bool isMoving = Mathf.Abs(rb.linearVelocity.x) > 0.1f;
         bool isAttacking = Time.time < lastAttackTime + 0.5f;
         
         anim.SetBool("IsMoving", isMoving && !isChargingAttack);
