@@ -98,7 +98,7 @@ public class EnemyChase_Attack : MonoBehaviour
     {
         isChargingAttack = true;
         chargeStartTime = Time.time;
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
     }
 
     private void ChargeAttack()
@@ -131,23 +131,23 @@ public class EnemyChase_Attack : MonoBehaviour
         if (distanceToPlayer > stoppingDistance)
         {
             Vector2 direction = (player.position - transform.position).normalized;
-            rb.velocity = new Vector2(direction.x * chaseSpeed, rb.velocity.y);
+            rb.linearVelocity = new Vector2(direction.x * chaseSpeed, rb.linearVelocity.y);
             FlipSprite(direction.x);
         }
         else
         {
-            rb.velocity = new Vector2(0, rb.velocity.y);
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         }
     }
 
     private void Idle()
     {
-        rb.velocity = new Vector2(0, rb.velocity.y);
+        rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
     }
 
     private void UpdateAnimations()
     {
-        bool isMoving = Mathf.Abs(rb.velocity.x) > 0.1f && !isChargingAttack;
+        bool isMoving = Mathf.Abs(rb.linearVelocity.x) > 0.1f && !isChargingAttack;
         bool isAttacking = Time.time < lastAttackTime + 0.5f;
         bool isCharging = isChargingAttack && Time.time < chargeStartTime + chargeTime;
         
