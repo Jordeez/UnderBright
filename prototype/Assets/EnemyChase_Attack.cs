@@ -103,8 +103,8 @@ public class EnemyChase_Attack : MonoBehaviour
         bool isMoving = Mathf.Abs(rb.velocity.x) > 0.1f;
         bool isAttacking = Time.time < lastAttackTime + 0.5f; // Attack animation duration
         
-        anim.SetBool("IsMoving", isMoving);
-        anim.SetBool("IsAttacking", isAttacking && distanceToPlayer <= attackRange);
+        anim.SetBool("isMoving", isMoving);
+        anim.SetBool("isAttacking", isAttacking && distanceToPlayer <= attackRange);
     }
 
     private void FlipSprite()
