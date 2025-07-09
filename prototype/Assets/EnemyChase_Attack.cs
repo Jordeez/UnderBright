@@ -126,9 +126,10 @@ public class EnemyChase_Attack : MonoBehaviour
 
         foreach (Collider2D playerCollider in hitPlayers)
         {
-            // playerCollider.GetComponent<PlayerHealth>()?.TakeDamage(attackDamage);
-            Debug.Log("Player hit");
+            playerCollider.GetComponent<PlayerHealth>()?.TakeDamage(attackDamage);
+            playerCollider.GetComponent<KnockbackHandler>()?.ReceiveHit(transform.position);
         }
+
     }
 
     private void ChasePlayer(float distanceToPlayer)

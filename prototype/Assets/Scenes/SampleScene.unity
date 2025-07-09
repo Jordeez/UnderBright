@@ -710,6 +710,7 @@ GameObject:
   - component: {fileID: 1939084918}
   - component: {fileID: 1939084919}
   - component: {fileID: 1939084920}
+  - component: {fileID: 1939084921}
   m_Layer: 10
   m_Name: GameObject
   m_TagString: Untagged
@@ -915,7 +916,7 @@ MonoBehaviour:
   rearDetectionReduction: 0.5
   chaseSpeed: 5
   stoppingDistance: 0.5
-  attackCooldown: 2
+  attackCooldown: 0
   chargeTime: 0.5
   attackDamage: 1
   attackSize: {x: 1, y: 1}
@@ -946,6 +947,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1939084921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939084911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84b47d61d1e576046a3c748e09715f6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockbackForce: 6
+  knockbackDuration: 0.15
+  armor: 0
+  hitWindow: 0.6
+  freezeY: 1
 --- !u!1 &2011987706
 GameObject:
   m_ObjectHideFlags: 0
@@ -960,6 +978,9 @@ GameObject:
   - component: {fileID: 2011987710}
   - component: {fileID: 2011987712}
   - component: {fileID: 2011987713}
+  - component: {fileID: 2011987714}
+  - component: {fileID: 2011987715}
+  - component: {fileID: 2011987716}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -1154,6 +1175,51 @@ MonoBehaviour:
   enemyLayers:
     serializedVersion: 2
     m_Bits: 1024
+--- !u!114 &2011987714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2011987706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 931f3c3e0b4867e47984446de50b6853, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHealth: 10
+  attackPower: 5
+  playerDefense: 5
+  spellsNumber: 0
+--- !u!114 &2011987715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2011987706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 584b8a83dc1be3845b4078c8b901a6ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2011987716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2011987706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84b47d61d1e576046a3c748e09715f6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockbackForce: 1.5
+  knockbackDuration: 0.35
+  armor: 0
+  hitWindow: 0.6
+  freezeY: 1
 --- !u!1 &2130003415
 GameObject:
   m_ObjectHideFlags: 0

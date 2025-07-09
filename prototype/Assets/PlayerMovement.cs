@@ -1,8 +1,9 @@
 using UnityEngine;
 
-public class movement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody2D myRigidbody;
+    private KnockbackHandler knock;
     private bool isGrounded;
 
     public float moveSpeed = 5f;
@@ -11,84 +12,79 @@ public class movement : MonoBehaviour
     private Animator anim;
     private SpriteRenderer spriteRenderer;
 
-    // Combo system variables
     private bool isAttacking = false;
-
-    // Attack input buffer variables
     private float inputBufferTimer = 0f;
     private bool attack1Buffered = false;
     private bool attack2Buffered = false;
-    public float inputBufferTime = 0.25f; // Buffer time for inputs (time between attacks)
+    public float inputBufferTime = 0.25f;
 
     public Transform attackPoint;
     public float attackRange = 0.5f;
-    public LayerMask enemyLayers; 
+    public LayerMask enemyLayers;
+
+    private float moveInputX;
 
     void Start()
     {
+        knock = GetComponent<KnockbackHandler>();
         anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
     {
-        // Handle input buffer timer
-        if (inputBufferTimer > 0f)
-        {
-            inputBufferTimer -= Time.deltaTime;
-        }
+        moveInputX = 0f;
+        if (Input.GetKey(KeyCode.A)) moveInputX = -1f;
+        if (Input.GetKey(KeyCode.D)) moveInputX = 1f;
 
-        HandleMovement();
+        if (moveInputX < 0f) FlipSprite(true);
+        if (moveInputX > 0f) FlipSprite(false);
+
         HandleAttackCombo();
+        HandleJumpInput();
+        TickInputBuffer();
     }
 
-    void HandleMovement()
+    void FixedUpdate()
     {
-        Vector2 velocity = myRigidbody.linearVelocity;
-        anim.SetBool("isRunning", Mathf.Abs(velocity.x) > 0.1f);
+        Vector2 vel = myRigidbody.linearVelocity;
 
-        if (Input.GetKey(KeyCode.A))
+        if (!knock.IsKnockedBack)
         {
-            velocity.x = -moveSpeed;
-            FlipSprite(true);
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            velocity.x = moveSpeed;
-            FlipSprite(false);
-        }
-        else
-        {
-            velocity.x = 0f;
+            vel.x = moveInputX * moveSpeed;
         }
 
-        if (Input.GetKeyDown(KeyCode.W) && isGrounded)
+        vel += knock.CurrentForce;
+
+        myRigidbody.linearVelocity = vel;
+
+        anim.SetBool("isRunning", Mathf.Abs(moveInputX) > 0.1f && isGrounded);
+    }
+
+    void HandleJumpInput()
+    {
+        if (Input.GetKeyDown(KeyCode.W) && isGrounded && !knock.IsKnockedBack)
         {
-            velocity.y = jumpForce;
+            myRigidbody.linearVelocity = new Vector2(myRigidbody.linearVelocity.x, jumpForce);
             isGrounded = false;
             anim.SetTrigger("Jump");
             anim.SetBool("isGrounded", false);
         }
-
-        myRigidbody.linearVelocity = velocity;
     }
 
     void HandleAttackCombo()
     {
         if (inputBufferTimer <= 0f)
         {
-            // If no input in buffer, we clear the buffered flags
             attack1Buffered = false;
             attack2Buffered = false;
         }
 
-        // If player presses attack (J) and we're grounded
         if (Input.GetKeyDown(KeyCode.J) && isGrounded)
         {
             Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
             if (!isAttacking)
             {
-                // First attack input
                 if (!attack1Buffered)
                 {
                     attack1Buffered = true;
@@ -97,9 +93,8 @@ public class movement : MonoBehaviour
                     {
                         Debug.Log("enemy hit");
                     }
-                    inputBufferTimer = inputBufferTime; // Set buffer time for subsequent input
+                    inputBufferTimer = inputBufferTime;
                 }
-                // If we already buffered attack1, buffer attack2
                 else if (attack1Buffered && !attack2Buffered)
                 {
                     attack2Buffered = true;
@@ -110,29 +105,36 @@ public class movement : MonoBehaviour
         }
     }
 
-    void OnDrawGizmosSelected()
+    void TickInputBuffer()
     {
-        if(attackPoint == null)
+        if (inputBufferTimer > 0f)
         {
-            return;
+            inputBufferTimer -= Time.deltaTime;
         }
-        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 
     void ResetAttackBuffer()
     {
         attack1Buffered = false;
         attack2Buffered = false;
-        inputBufferTimer = 0f; // Reset input buffer timer
+        inputBufferTimer = 0f;
     }
 
     void FlipSprite(bool faceLeft)
     {
         Vector3 scale = transform.localScale;
-        if ((faceLeft && scale.x > 0) || (!faceLeft && scale.x < 0))
+        if ((faceLeft && scale.x > 0f) || (!faceLeft && scale.x < 0f))
         {
-            scale.x *= -1;
+            scale.x *= -1f;
             transform.localScale = scale;
+        }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (attackPoint != null)
+        {
+            Gizmos.DrawWireSphere(attackPoint.position, attackRange);
         }
     }
 
