@@ -52,6 +52,7 @@ public class EnemyChase_Attack : MonoBehaviour
 
         if (distanceToPlayer <= effectiveDetectionRange)
         {
+            anim.SetBool("isHostile", true);
             // Disable patrolling when player is detected
             if (enemyAI.enabled)
             {
@@ -70,6 +71,7 @@ public class EnemyChase_Attack : MonoBehaviour
         }
         else
         {
+            anim.SetBool("isHostile", false);
             // Re-enable patrolling when player is out of range
             if (wasPatrolling)
             {

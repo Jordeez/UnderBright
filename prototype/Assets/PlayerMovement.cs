@@ -80,27 +80,28 @@ public class PlayerMovement : MonoBehaviour
             attack2Buffered = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.J) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.J) && isGrounded && !isAttacking)
         {
             Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
-            if (!isAttacking)
+
+            if (!attack1Buffered)
             {
-                if (!attack1Buffered)
+                attack1Buffered = true;
+                anim.SetTrigger("attack1");
+                isAttacking = true;
+                foreach (Collider2D enemy in hitEnemies)
                 {
-                    attack1Buffered = true;
-                    anim.SetTrigger("attack1");
-                    foreach (Collider2D enemy in hitEnemies)
-                    {
-                        Debug.Log("enemy hit");
-                    }
-                    inputBufferTimer = inputBufferTime;
+                    enemy.GetComponent<KnockbackHandler>()?.ReceiveHit(transform.position);
+                    Debug.Log("enemy hit");
                 }
-                else if (attack1Buffered && !attack2Buffered)
-                {
-                    attack2Buffered = true;
-                    anim.SetTrigger("attack2");
-                    ResetAttackBuffer();
-                }
+                inputBufferTimer = inputBufferTime;
+            }
+            else if (attack1Buffered && !attack2Buffered)
+            {
+                attack2Buffered = true;
+                anim.SetTrigger("attack2");
+                isAttacking = true;
+                ResetAttackBuffer();
             }
         }
     }
@@ -110,14 +111,22 @@ public class PlayerMovement : MonoBehaviour
         if (inputBufferTimer > 0f)
         {
             inputBufferTimer -= Time.deltaTime;
+            if (inputBufferTimer <= 0f)            
+            {
+                isAttacking = false;               
+                attack1Buffered = false;
+                attack2Buffered = false;
+            }
         }
     }
+
 
     void ResetAttackBuffer()
     {
         attack1Buffered = false;
         attack2Buffered = false;
         inputBufferTimer = 0f;
+        isAttacking = false;
     }
 
     void FlipSprite(bool faceLeft)
@@ -146,4 +155,10 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("isGrounded", true);
         }
     }
+
+    public void OnAttack1End()
+    {
+        isAttacking = false;   // animation is over – player can press J again
+    }
 }
+
