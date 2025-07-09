@@ -2,29 +2,32 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public Rigidbody2D myRigidbody;
+    [Header("References")]
+    public Rigidbody2D rb;
     private KnockbackHandler knock;
-    private bool isGrounded;
-
-    public float moveSpeed = 5f;
-    public float jumpForce = 5f;
-
     private Animator anim;
     private SpriteRenderer spriteRenderer;
 
-    private bool isAttacking = false;
-    private float inputBufferTimer = 0f;
-    private bool attack1Buffered = false;
-    private bool attack2Buffered = false;
-    public float inputBufferTime = 0.25f;
+    [Header("Horizontal movement")]
+    public float topSpeed = 8f;   
+    public float acceleration = 80f;    
+    public float deceleration = 60f;   
+    public float velPower = 1f;  
+    public float frictionAmount = 0.2f;   
 
-    public Transform attackPoint;
-    public float attackRange = 0.5f;
-    public LayerMask enemyLayers;
+    [Header("Jump")]
+    public float jumpForce = 10f;
+    public float jumpCutMultiplier = 0.5f;  
 
-    private float moveInputX;
 
-    void Start()
+    private float moveInput;              
+    private bool isGrounded;
+    private bool isJumping;
+    private float lastGroundedTime;        
+    private const float groundedTolerance = 0.1f;
+
+
+    void Awake()
     {
         knock = GetComponent<KnockbackHandler>();
         anim = GetComponent<Animator>();
@@ -33,132 +36,109 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        moveInputX = 0f;
-        if (Input.GetKey(KeyCode.A)) moveInputX = -1f;
-        if (Input.GetKey(KeyCode.D)) moveInputX = 1f;
 
-        if (moveInputX < 0f) FlipSprite(true);
-        if (moveInputX > 0f) FlipSprite(false);
+        moveInput = 0;
+        if (Input.GetKey(KeyCode.A)) moveInput = -1;
+        if (Input.GetKey(KeyCode.D)) moveInput = 1;
 
-        HandleAttackCombo();
-        HandleJumpInput();
-        TickInputBuffer();
+
+        if (Input.GetKeyDown(KeyCode.W) && isGrounded && !knock.IsKnockedBack)
+            Jump();
+        if (Input.GetKeyUp(KeyCode.W))
+            OnJumpUp();
+
+        if (moveInput < 0) spriteRenderer.flipX = true;
+        if (moveInput > 0) spriteRenderer.flipX = false;
     }
 
     void FixedUpdate()
     {
-        Vector2 vel = myRigidbody.linearVelocity;
-
-        if (!knock.IsKnockedBack)
-        {
-            vel.x = moveInputX * moveSpeed;
-        }
-
-        vel += knock.CurrentForce;
-
-        myRigidbody.linearVelocity = vel;
-
-        anim.SetBool("isRunning", Mathf.Abs(moveInputX) > 0.1f && isGrounded);
+        ApplyHorizontalMovement();
+        ApplyFriction();
+        anim.SetBool("isRunning", Mathf.Abs(moveInput) > 0.01f && isGrounded);
     }
 
-    void HandleJumpInput()
+
+
+
+    void ApplyHorizontalMovement()
     {
-        if (Input.GetKeyDown(KeyCode.W) && isGrounded && !knock.IsKnockedBack)
-        {
-            myRigidbody.linearVelocity = new Vector2(myRigidbody.linearVelocity.x, jumpForce);
-            isGrounded = false;
-            anim.SetTrigger("Jump");
-            anim.SetBool("isGrounded", false);
-        }
+        if (knock.IsKnockedBack) return;
+
+
+        float targetSpeed = moveInput * topSpeed;
+
+
+        float speedDif = targetSpeed - rb.linearVelocity.x;
+
+
+        float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : deceleration;
+
+
+        float movement = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, velPower) * Mathf.Sign(speedDif);
+
+        rb.AddForce(movement * Vector2.right);
     }
 
-    void HandleAttackCombo()
+
+
+    void ApplyFriction()
     {
-        if (inputBufferTimer <= 0f)
-        {
-            attack1Buffered = false;
-            attack2Buffered = false;
-        }
 
-        if (Input.GetKeyDown(KeyCode.J) && isGrounded && !isAttacking)
+        if (isGrounded && Mathf.Abs(moveInput) < 0.01f && Mathf.Abs(rb.linearVelocity.x) > 0.01f)
         {
-            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
 
-            if (!attack1Buffered)
-            {
-                attack1Buffered = true;
-                anim.SetTrigger("attack1");
-                isAttacking = true;
-                foreach (Collider2D enemy in hitEnemies)
-                {
-                    enemy.GetComponent<KnockbackHandler>()?.ReceiveHit(transform.position);
-                    Debug.Log("enemy hit");
-                }
-                inputBufferTimer = inputBufferTime;
-            }
-            else if (attack1Buffered && !attack2Buffered)
-            {
-                attack2Buffered = true;
-                anim.SetTrigger("attack2");
-                isAttacking = true;
-                ResetAttackBuffer();
-            }
-        }
-    }
-
-    void TickInputBuffer()
-    {
-        if (inputBufferTimer > 0f)
-        {
-            inputBufferTimer -= Time.deltaTime;
-            if (inputBufferTimer <= 0f)            
-            {
-                isAttacking = false;               
-                attack1Buffered = false;
-                attack2Buffered = false;
-            }
+            float amount = Mathf.Min(Mathf.Abs(rb.linearVelocity.x), Mathf.Abs(frictionAmount));
+            amount *= Mathf.Sign(rb.linearVelocity.x);
+            rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse);
         }
     }
 
 
-    void ResetAttackBuffer()
+
+    void Jump()
     {
-        attack1Buffered = false;
-        attack2Buffered = false;
-        inputBufferTimer = 0f;
-        isAttacking = false;
+        isGrounded = false;
+        isJumping = true;
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+        anim.SetTrigger("Jump");
+        anim.SetBool("isGrounded", false);
     }
 
-    void FlipSprite(bool faceLeft)
+
+    void OnJumpUp()
     {
-        Vector3 scale = transform.localScale;
-        if ((faceLeft && scale.x > 0f) || (!faceLeft && scale.x < 0f))
+        if (rb.linearVelocity.y > 0 && isJumping)
         {
-            scale.x *= -1f;
-            transform.localScale = scale;
+
+            float cut = rb.linearVelocity.y * (1 - jumpCutMultiplier);
+            rb.AddForce(Vector2.down * cut, ForceMode2D.Impulse);
         }
+        isJumping = false;
     }
 
-    void OnDrawGizmosSelected()
-    {
-        if (attackPoint != null)
-        {
-            Gizmos.DrawWireSphere(attackPoint.position, attackRange);
-        }
-    }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D c)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (c.gameObject.CompareTag("Ground"))
         {
+
             isGrounded = true;
+            isJumping = false;
+            lastGroundedTime = groundedTolerance;
             anim.SetBool("isGrounded", true);
         }
     }
 
-    public void OnAttack1End()
+    void OnCollisionStay2D(Collision2D c)
     {
-        isAttacking = false;   // animation is over – player can press J again
+        if (c.gameObject.CompareTag("Ground"))
+            lastGroundedTime = groundedTolerance;
+    }
+
+    void OnCollisionExit2D(Collision2D c)
+    {
+        if (c.gameObject.CompareTag("Ground"))
+            isGrounded = false;
     }
 }
-

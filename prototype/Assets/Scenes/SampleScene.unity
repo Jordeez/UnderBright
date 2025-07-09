@@ -181,7 +181,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.540766
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -309,7 +309,7 @@ MonoBehaviour:
   m_Follow: {fileID: 2011987709}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 6.540766
+    OrthographicSize: 7
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -804,9 +804,9 @@ RectTransform:
   m_Father: {fileID: 1042509647}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0.44536787, y: 1}
-  m_AnchoredPosition: {x: 6.4558105, y: -37.362305}
-  m_SizeDelta: {x: -12.911, y: 53.4965}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 262.6233, y: -41.72708}
+  m_SizeDelta: {x: 503.0464, y: 52.8035}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1181591238
 MonoBehaviour:
@@ -872,6 +872,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 1181591238}
+  fillImage: {fileID: 877974673}
+  slideSpeed: 10
 --- !u!1 &1207317813
 GameObject:
   m_ObjectHideFlags: 0
@@ -1484,6 +1486,7 @@ GameObject:
   - component: {fileID: 2011987715}
   - component: {fileID: 2011987716}
   - component: {fileID: 2011987717}
+  - component: {fileID: 2011987718}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -1599,7 +1602,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1.5
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1607,9 +1610,9 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_Interpolate: 1
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &2011987712
 BoxCollider2D:
@@ -1669,15 +1672,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: add8093ee42b98645a42aac40065828b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myRigidbody: {fileID: 2011987710}
-  moveSpeed: 6
-  jumpForce: 10
-  inputBufferTime: 0.25
-  attackPoint: {fileID: 1689680158}
-  attackRange: 3
-  enemyLayers:
-    serializedVersion: 2
-    m_Bits: 1024
+  rb: {fileID: 2011987710}
+  topSpeed: 10
+  acceleration: 80
+  deceleration: 60
+  velPower: 1
+  frictionAmount: 0.5
+  jumpForce: 15
+  jumpCutMultiplier: 0.5
 --- !u!114 &2011987714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1719,7 +1721,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84b47d61d1e576046a3c748e09715f6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockbackForce: 1.5
+  knockbackForce: 5
   knockbackDuration: 0.35
   armor: 0
   hitWindow: 0.6
@@ -1777,6 +1779,23 @@ MonoBehaviour:
     m_DissipationDistance: 100
     m_PropagationSpeed: 343
   m_DefaultVelocity: {x: 2, y: 2, z: 4}
+--- !u!114 &2011987718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2011987706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f90860c271c766b43810f42a57cf530d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackPoint: {fileID: 0}
+  attackRange: 0.5
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &2130003415
 GameObject:
   m_ObjectHideFlags: 0
