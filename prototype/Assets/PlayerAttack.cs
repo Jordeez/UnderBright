@@ -18,7 +18,7 @@ public class PlayerAttack : MonoBehaviour
     
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.J) && !isAttacking)
+        if (Input.GetKeyDown(KeyCode.J) && isAttacking)
             StartAttack();
 
         CheckIfAttackFinished();
