@@ -20,7 +20,7 @@ public class PlayerAttack : MonoBehaviour
     
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.J) && isAttacking)
+        if (Input.GetKeyDown(KeyCode.J) && !isAttacking)
             StartAttack();
 
         CheckIfAttackFinished();
@@ -28,7 +28,7 @@ public class PlayerAttack : MonoBehaviour
 
     void StartAttack()
     {
-        isAttacking = true;
+        isAttacking = false;
         comboStep = (comboStep % 2) + 1;   
 
         if (comboStep == 1) anim.SetTrigger("attack1");
