@@ -19,7 +19,7 @@ public class EnemyChase_Attack : MonoBehaviour
     [SerializeField] private float attackCooldown = 2f;
     [SerializeField] private float chargeTime = 0.5f;
     [SerializeField] private int attackDamage = 1;
-    [SerializeField] private Vector2 attackSize = new Vector2(1f, 1f);
+    [SerializeField] private Vector2 attackSize = new Vector2(5f, 5f);
 
     // Components
     private Rigidbody2D rb;
@@ -148,6 +148,7 @@ public class EnemyChase_Attack : MonoBehaviour
             attackSize, 
             0f, 
             playerLayer);
+        Debug.Log($"Hit {hitPlayers.Length} objects");  // Should show >0 when player is in range
 
         foreach (Collider2D playerCollider in hitPlayers)
         {
