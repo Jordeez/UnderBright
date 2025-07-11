@@ -40,7 +40,7 @@ public class FlyingType : MonoBehaviour
     private void Animate()
     {
         // Example animation logic
-        anim.SetFloat("Speed", rb.velocity.magnitude);
+        anim.SetFloat("Speed", rb.linearVelocity.magnitude);
     }
     private void OnDrawGizmosSelected()
     {
@@ -56,7 +56,7 @@ public class FlyingType : MonoBehaviour
     }
     private void OnDisable()
     {
-        rb.velocity = Vector2.zero; // Stop movement when disabled
+        rb.linearVelocity = Vector2.zero; // Stop movement when disabled
         anim.SetFloat("Speed", 0f); // Reset animation speed
         rb.angularVelocity = 0f; // Stop any rotation
         rb.rotation = 0f; // Reset rotation

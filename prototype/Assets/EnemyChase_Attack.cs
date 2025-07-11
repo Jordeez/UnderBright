@@ -89,7 +89,7 @@ public class EnemyChase_Attack : MonoBehaviour
         if (enemyAI.enabled)
         {
             enemyAI.enabled = false;
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
         }
 
         FlipTowardsPlayer();
@@ -104,7 +104,7 @@ public class EnemyChase_Attack : MonoBehaviour
         }
         else
         {
-            rb.velocity = new Vector2(0, rb.velocity.y);
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         }
     }
 
@@ -126,7 +126,7 @@ public class EnemyChase_Attack : MonoBehaviour
         if (IsNearLedge()) return; // Don't walk off ledges
 
         float direction = isFacingRight ? 1 : -1;
-        rb.velocity = new Vector2(direction * chaseSpeed, rb.velocity.y);
+        rb.linearVelocity = new Vector2(direction * chaseSpeed, rb.linearVelocity.y);
     }
 
     private bool IsNearLedge()
@@ -144,7 +144,7 @@ public class EnemyChase_Attack : MonoBehaviour
         // Jump if player is significantly higher
         if (player.position.y > transform.position.y + minJumpHeightDiff)
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             lastJumpTime = Time.time;
         }
     }
@@ -180,15 +180,15 @@ public class EnemyChase_Attack : MonoBehaviour
         if (!enemyAI.enabled)
         {
             enemyAI.enabled = true;
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
         }
     }
 
     private void UpdateAnimations()
     {
-        anim.SetBool("IsMoving", Mathf.Abs(rb.velocity.x) > 0.1f);
+        anim.SetBool("IsMoving", Mathf.Abs(rb.linearVelocity.x) > 0.1f);
         anim.SetBool("IsGrounded", IsGrounded());
-        anim.SetFloat("VerticalVelocity", rb.velocity.y);
+        anim.SetFloat("VerticalVelocity", rb.linearVelocity.y);
     }
 
     private void OnDrawGizmosSelected()
