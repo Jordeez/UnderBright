@@ -2,57 +2,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 [RequireComponent(typeof(Rigidbody2D), typeof(Animator), typeof(EnemyAI))]
 public class EnemyChase_Attack : MonoBehaviour
 {
-    [Header("Detection")]
+    [Header("Detection Settings")]
     [SerializeField] private float detectionRange = 5f;
-    [SerializeField] private float attackRange = 1.5f;
+    [SerializeField] private float attackRange = 1f;
     [SerializeField] private LayerMask playerLayer;
-    [SerializeField] private float visionConeAngle = 90f; // Wider cone for platformers
+    [SerializeField] [Range(0, 1)] private float rearDetectionReduction = 0.5f;
 
-    [Header("Movement")]
-    [SerializeField] private float chaseSpeed = 4f;
-    [SerializeField] private float stoppingDistance = 1f;
-    [SerializeField] private float ledgeCheckDistance = 2f; // Stops at edges
-    [SerializeField] private LayerMask groundLayer;
+    [Header("Chase Settings")]
+    [SerializeField] private float chaseSpeed = 3f;
+    [SerializeField] private float stoppingDistance = 0.5f;
 
-    [Header("Jumping")]
-    [SerializeField] private float jumpForce = 8f;
-    [SerializeField] private float jumpCooldown = 2f;
-    [SerializeField] private float minJumpHeightDiff = 1f; // Jump if player is higher
-
-    [Header("Attack")]
-    [SerializeField] private float attackCooldown = 1.5f;
+    [Header("Charge Attack Settings")]
+    [SerializeField] private float attackCooldown = 2f;
+    [SerializeField] private float chargeTime = 0.5f; // Wind-up before attacking
+    [SerializeField] private float chargeSpeedMultiplier = 1.5f; // Faster dash during charge
     [SerializeField] private int attackDamage = 1;
-    [SerializeField] private Vector2 attackSize = new Vector2(1.5f, 1f);
-    [SerializeField] private float attackKnockback = 5f;
+    [SerializeField] private Vector2 attackSize = new Vector2(1f, 1f);
 
     // Components
     private Rigidbody2D rb;
     private Animator anim;
     private EnemyAI enemyAI;
     private Transform player;
-    private PlayerHealth playerHealth;
 
-    // State
+    // State variables
     private float lastAttackTime;
-    private float lastJumpTime;
-    private bool isFacingRight = true;
+    private bool isChargingAttack;
+    private float chargeStartTime;
+    private bool wasPatrolling;
+    private Vector2 chargeDirection; // Stores direction during charge
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         enemyAI = GetComponent<EnemyAI>();
-        FindPlayer();
-    }
-
-    private void FindPlayer()
-    {
-        player = GameObject.FindGameObjectWithTag("Player")?.transform;
-        if (player != null) playerHealth = player.GetComponent<PlayerHealth>();
+        player = GameObject.FindWithTag("Player")?.transform;
     }
 
     private void Update()
@@ -60,153 +48,147 @@ public class EnemyChase_Attack : MonoBehaviour
         if (player == null) return;
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-        bool canSeePlayer = CanDetectPlayer(distanceToPlayer);
+        bool playerInFront = IsPlayerInFront();
 
-        if (canSeePlayer)
+        float effectiveDetectionRange = playerInFront ? detectionRange : detectionRange * rearDetectionReduction;
+
+        if (distanceToPlayer <= effectiveDetectionRange)
         {
-            HandlePlayerDetected(distanceToPlayer);
-            TryJump();
+            // Disable patrolling when player is detected
+            if (enemyAI.enabled)
+            {
+                wasPatrolling = true;
+                enemyAI.enabled = false;
+            }
+
+            if (ShouldAttack(distanceToPlayer))
+            {
+                HandleAttack();
+            }
+            else if (!isChargingAttack)
+            {
+                ChasePlayer(distanceToPlayer);
+            }
         }
         else
         {
-            HandlePlayerLost();
+            // Re-enable patrolling when player is out of range
+            if (wasPatrolling)
+            {
+                enemyAI.enabled = true;
+                wasPatrolling = false;
+            }
+            Idle();
         }
 
         UpdateAnimations();
     }
 
-    private bool CanDetectPlayer(float distance)
+    private bool IsPlayerInFront()
     {
-        if (distance > detectionRange) return false;
-
-        Vector2 dirToPlayer = (player.position - transform.position).normalized;
-        float angle = Vector2.Angle(isFacingRight ? Vector2.right : Vector2.left, dirToPlayer);
-        return angle < visionConeAngle / 2;
+        if (player == null) return false;
+        Vector2 toPlayer = (player.position - transform.position).normalized;
+        return Vector2.Dot(toPlayer, transform.right) > 0;
     }
 
-    private void HandlePlayerDetected(float distance)
+    private bool ShouldAttack(float distanceToPlayer)
     {
-        if (enemyAI.enabled)
-        {
-            enemyAI.enabled = false;
-            rb.linearVelocity = Vector2.zero;
-        }
+        return distanceToPlayer <= attackRange && 
+               Time.time > lastAttackTime + attackCooldown;
+    }
 
-        FlipTowardsPlayer();
-
-        if (distance <= attackRange && Time.time > lastAttackTime + attackCooldown)
+    private void HandleAttack()
+    {
+        if (!isChargingAttack)
         {
-            Attack();
+            StartCharge();
         }
-        else if (distance > stoppingDistance)
+        else if (Time.time >= chargeStartTime + chargeTime)
         {
-            ChasePlayer();
+            ExecuteAttack();
         }
         else
         {
-            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            // Continue charging toward the player
+            rb.velocity = chargeDirection * (chaseSpeed * chargeSpeedMultiplier);
         }
     }
 
-    private void FlipTowardsPlayer()
+    private void StartCharge()
     {
-        bool playerIsRight = player.position.x > transform.position.x;
-        if (playerIsRight != isFacingRight)
-        {
-            isFacingRight = playerIsRight;
-            transform.localScale = new Vector3(
-                isFacingRight ? 1 : -1, 
-                transform.localScale.y, 
-                transform.localScale.z);
-        }
+        isChargingAttack = true;
+        chargeStartTime = Time.time;
+        chargeDirection = (player.position - transform.position).normalized;
+        anim.SetTrigger("StartCharge"); // Optional: Add a charge animation
     }
 
-    private void ChasePlayer()
+    private void ExecuteAttack()
     {
-        if (IsNearLedge()) return; // Don't walk off ledges
-
-        float direction = isFacingRight ? 1 : -1;
-        rb.linearVelocity = new Vector2(direction * chaseSpeed, rb.linearVelocity.y);
-    }
-
-    private bool IsNearLedge()
-    {
-        Vector2 checkPos = transform.position + 
-            (isFacingRight ? Vector3.right : Vector3.left) * 0.5f;
-        return !Physics2D.Raycast(checkPos, Vector2.down, ledgeCheckDistance, groundLayer);
-    }
-
-    private void TryJump()
-    {
-        if (Time.time < lastJumpTime + jumpCooldown) return;
-        if (!IsGrounded()) return;
-
-        // Jump if player is significantly higher
-        if (player.position.y > transform.position.y + minJumpHeightDiff)
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-            lastJumpTime = Time.time;
-        }
-    }
-
-    private bool IsGrounded()
-    {
-        return Physics2D.Raycast(transform.position, Vector2.down, 0.1f, groundLayer);
-    }
-
-    private void Attack()
-    {
+        isChargingAttack = false;
         lastAttackTime = Time.time;
-        anim.SetTrigger("Attack");
 
-        // Detect hit after animation delay (use Animation Events in practice)
-        Collider2D[] hits = Physics2D.OverlapBoxAll(
-            transform.position + (isFacingRight ? Vector3.right : Vector3.left) * attackSize.x / 2,
-            attackSize, 
-            0, 
-            playerLayer);
+        // Detect hits in front of the enemy
+        Vector2 attackCenter = (Vector2)transform.position + chargeDirection * (attackSize.x / 2);
+        Collider2D[] hitPlayers = Physics2D.OverlapBoxAll(attackCenter, attackSize, 0, playerLayer);
 
-        foreach (var hit in hits)
+        foreach (Collider2D playerCollider in hitPlayers)
         {
-            playerHealth?.TakeDamage(attackDamage);
-            hit.attachedRigidbody?.AddForce(
-                (hit.transform.position - transform.position).normalized * attackKnockback, 
-                ForceMode2D.Impulse);
+            playerCollider.GetComponent<PlayerHealth>()?.TakeDamage(attackDamage);
+        }
+
+        rb.velocity = Vector2.zero; // Stop after attack
+    }
+
+    private void ChasePlayer(float distanceToPlayer)
+    {
+        if (distanceToPlayer > stoppingDistance)
+        {
+            Vector2 direction = (player.position - transform.position).normalized;
+            rb.velocity = new Vector2(direction.x * chaseSpeed, rb.velocity.y);
+
+            // Flip sprite based on movement direction
+            if (Mathf.Abs(direction.x) > 0.1f)
+            {
+                transform.localScale = new Vector3(
+                    direction.x > 0 ? -1 : 1, 
+                    1, 
+                    1);
+            }
+        }
+        else
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
         }
     }
 
-    private void HandlePlayerLost()
+    private void Idle()
     {
-        if (!enemyAI.enabled)
-        {
-            enemyAI.enabled = true;
-            rb.linearVelocity = Vector2.zero;
-        }
+        rb.velocity = Vector2.zero;
+        isChargingAttack = false;
     }
 
     private void UpdateAnimations()
     {
-        anim.SetBool("IsMoving", Mathf.Abs(rb.linearVelocity.x) > 0.1f);
-        anim.SetBool("IsGrounded", IsGrounded());
-        anim.SetFloat("VerticalVelocity", rb.linearVelocity.y);
+        anim.SetBool("IsMoving", Mathf.Abs(rb.velocity.x) > 0.1f && !isChargingAttack);
+        anim.SetBool("IsCharging", isChargingAttack);
     }
 
     private void OnDrawGizmosSelected()
     {
-        // Detection
+        // Detection range
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectionRange);
 
-        // Attack
+        // Attack range
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(
-            transform.position + (isFacingRight ? Vector3.right : Vector3.left) * attackSize.x / 2,
-            attackSize);
+        Gizmos.DrawWireSphere(transform.position, attackRange);
 
-        // Ledge check
-        Gizmos.color = Color.blue;
-        Vector3 ledgePos = transform.position + 
-            (isFacingRight ? Vector3.right : Vector3.left) * 0.5f;
-        Gizmos.DrawLine(ledgePos, ledgePos + Vector3.down * ledgeCheckDistance);
+        // Charge attack area
+        if (isChargingAttack)
+        {
+            Gizmos.color = Color.magenta;
+            Vector2 attackCenter = (Vector2)transform.position + chargeDirection * (attackSize.x / 2);
+            Gizmos.DrawWireCube(attackCenter, attackSize);
+        }
     }
 }
