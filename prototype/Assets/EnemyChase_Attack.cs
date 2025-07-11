@@ -33,7 +33,7 @@ public class EnemyChase_Attack : MonoBehaviour
     private float chargeStartTime;
     private bool wasPatrolling;
 
-    private void Awake()
+    public void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
@@ -41,7 +41,7 @@ public class EnemyChase_Attack : MonoBehaviour
         player = GameObject.FindWithTag("Player")?.transform;
     }
 
-    private void Update()
+    public void Update()
     {
         if (player == null) return;
 
@@ -52,7 +52,6 @@ public class EnemyChase_Attack : MonoBehaviour
 
         if (distanceToPlayer <= effectiveDetectionRange)
         {
-            anim.SetBool("isHostile", true);
             // Disable patrolling when player is detected
             if (enemyAI.enabled)
             {
@@ -71,7 +70,6 @@ public class EnemyChase_Attack : MonoBehaviour
         }
         else
         {
-            anim.SetBool("isHostile", false);
             // Re-enable patrolling when player is out of range
             if (wasPatrolling)
             {
@@ -84,19 +82,19 @@ public class EnemyChase_Attack : MonoBehaviour
         UpdateAnimations();
     }
 
-    private bool IsPlayerInFront()
+    public bool IsPlayerInFront()
     {
         Vector2 toPlayer = (player.position - transform.position).normalized;
         return Vector2.Dot(toPlayer, transform.right) > 0;
     }
 
-    private bool ShouldAttack(float distanceToPlayer)
+    public bool ShouldAttack(float distanceToPlayer)
     {
         return distanceToPlayer <= attackRange && 
                Time.time > lastAttackTime + attackCooldown;
     }
 
-    private void HandleAttack()
+    public void HandleAttack()
     {
         if (!isChargingAttack)
         {
@@ -108,14 +106,14 @@ public class EnemyChase_Attack : MonoBehaviour
         }
     }
 
-    private void StartCharge()
+    public void StartCharge()
     {
         isChargingAttack = true;
         chargeStartTime = Time.time;
-        rb.linearVelocity = Vector2.zero;
+        rb.velocity = Vector2.zero;
     }
 
-    private void ExecuteAttack()
+    public void ExecuteAttack()
     {
         lastAttackTime = Time.time;
         isChargingAttack = false;
@@ -129,39 +127,37 @@ public class EnemyChase_Attack : MonoBehaviour
         foreach (Collider2D playerCollider in hitPlayers)
         {
             playerCollider.GetComponent<PlayerHealth>()?.TakeDamage(attackDamage);
-            playerCollider.GetComponent<KnockbackHandler>()?.ReceiveHit(transform.position);
         }
-
     }
 
-    private void ChasePlayer(float distanceToPlayer)
+    public void ChasePlayer(float distanceToPlayer)
     {
         if (distanceToPlayer > stoppingDistance)
         {
             Vector2 direction = (player.position - transform.position).normalized;
-            rb.linearVelocity = new Vector2(direction.x * chaseSpeed, rb.linearVelocity.y);
+            rb.velocity = new Vector2(direction.x * chaseSpeed, rb.velocity.y);
             
             // Flip based on movement direction
             transform.localScale = new Vector3(
-                direction.x > 0 ? -15 : 15, 
-                15, 
+                direction.x > 0 ? -1 : 1, 
+                1, 
                 1);
         }
         else
         {
-            rb.linearVelocity = Vector2.zero;
+            rb.velocity = Vector2.zero;
         }
     }
 
-    private void Idle()
+    public void Idle()
     {
-        rb.linearVelocity = Vector2.zero;
+        rb.velocity = Vector2.zero;
         isChargingAttack = false;
     }
 
-    private void UpdateAnimations()
+    public void UpdateAnimations()
     {
-        bool isMoving = Mathf.Abs(rb.linearVelocity.x) > 0.1f;
+        bool isMoving = Mathf.Abs(rb.velocity.x) > 0.1f;
         bool isAttacking = Time.time < lastAttackTime + 0.5f;
         
         anim.SetBool("IsMoving", isMoving && !isChargingAttack);
@@ -169,7 +165,7 @@ public class EnemyChase_Attack : MonoBehaviour
         anim.SetBool("IsCharging", isChargingAttack);
     }
 
-    private void OnDrawGizmosSelected()
+    public void OnDrawGizmosSelected()
     {
         // Detection range
         Gizmos.color = Color.yellow;
