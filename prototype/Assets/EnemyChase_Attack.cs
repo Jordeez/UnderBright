@@ -50,6 +50,23 @@ public class EnemyChase_Attack : MonoBehaviour
 
         float effectiveDetectionRange = playerInFront ? detectionRange : detectionRange * rearDetectionReduction;
 
+        if (isChargingAttack)
+        {
+            // Raycast forward to detect walls
+            RaycastHit2D hit = Physics2D.Raycast(
+                transform.position, 
+                chargeDirection, 
+                0.5f, 
+                LayerMask.GetMask("Ground")); // Adjust layer as needed
+
+            if (hit.collider != null)
+            {
+                isChargingAttack = false;
+                rb.velocity = Vector2.zero;
+            }
+        }
+        
+        
         if (distanceToPlayer <= effectiveDetectionRange)
         {
             // Disable patrolling when player is detected
@@ -104,13 +121,19 @@ public class EnemyChase_Attack : MonoBehaviour
         {
             ExecuteAttack();
         }
+        else
+        {
+            // Optional: Keep moving during charge
+            rb.velocity = chargeDirection * chaseSpeed * 2f;
+        }
     }
 
     public void StartCharge()
     {
         isChargingAttack = true;
         chargeStartTime = Time.time;
-        rb.velocity = Vector2.zero;
+        chargeDirection = (player.position - transform.position).normalized; // Store direction
+        rb.velocity = chargeDirection * chaseSpeed * 2f; // Charge faster than chase speed
     }
 
     public void ExecuteAttack()
@@ -118,8 +141,9 @@ public class EnemyChase_Attack : MonoBehaviour
         lastAttackTime = Time.time;
         isChargingAttack = false;
 
+        Vector2 attackPos = (Vector2)transform.position + chargeDirection * (attackSize.x / 2);
         Collider2D[] hitPlayers = Physics2D.OverlapBoxAll(
-            transform.position, 
+            attackPos, // Position adjusted forward
             attackSize, 
             0f, 
             playerLayer);
