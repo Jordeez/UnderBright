@@ -9,16 +9,15 @@ public class EnemyChase_Attack : MonoBehaviour
     [SerializeField] private float detectionRange = 5f;
     [SerializeField] private float attackRange = 1f;
     [SerializeField] private LayerMask playerLayer;
-    [SerializeField] [Range(0, 1)] private float rearDetectionReduction = 0.5f;
+    [SerializeField] [Range(0,1)] private float rearDetectionReduction = 0.5f;
 
     [Header("Chase Settings")]
     [SerializeField] private float chaseSpeed = 3f;
     [SerializeField] private float stoppingDistance = 0.5f;
-
-    [Header("Charge Attack Settings")]
+    
+    [Header("Attack Settings")]
     [SerializeField] private float attackCooldown = 2f;
-    [SerializeField] private float chargeTime = 0.5f; // Wind-up before attacking
-    [SerializeField] private float chargeSpeedMultiplier = 1.5f; // Faster dash during charge
+    [SerializeField] private float chargeTime = 0.5f;
     [SerializeField] private int attackDamage = 1;
     [SerializeField] private Vector2 attackSize = new Vector2(1f, 1f);
 
@@ -33,9 +32,8 @@ public class EnemyChase_Attack : MonoBehaviour
     private bool isChargingAttack;
     private float chargeStartTime;
     private bool wasPatrolling;
-    private Vector2 chargeDirection; // Stores direction during charge
 
-    private void Awake()
+    public void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
@@ -43,7 +41,7 @@ public class EnemyChase_Attack : MonoBehaviour
         player = GameObject.FindWithTag("Player")?.transform;
     }
 
-    private void Update()
+    public void Update()
     {
         if (player == null) return;
 
@@ -52,6 +50,23 @@ public class EnemyChase_Attack : MonoBehaviour
 
         float effectiveDetectionRange = playerInFront ? detectionRange : detectionRange * rearDetectionReduction;
 
+        if (isChargingAttack)
+        {
+            // Raycast forward to detect walls
+            RaycastHit2D hit = Physics2D.Raycast(
+                transform.position, 
+                chargeDirection, 
+                0.5f, 
+                LayerMask.GetMask("Ground")); // Adjust layer as needed
+
+            if (hit.collider != null)
+            {
+                isChargingAttack = false;
+                rb.velocity = Vector2.zero;
+            }
+        }
+        
+        
         if (distanceToPlayer <= effectiveDetectionRange)
         {
             // Disable patrolling when player is detected
@@ -84,20 +99,19 @@ public class EnemyChase_Attack : MonoBehaviour
         UpdateAnimations();
     }
 
-    private bool IsPlayerInFront()
+    public bool IsPlayerInFront()
     {
-        if (player == null) return false;
         Vector2 toPlayer = (player.position - transform.position).normalized;
         return Vector2.Dot(toPlayer, transform.right) > 0;
     }
 
-    private bool ShouldAttack(float distanceToPlayer)
+    public bool ShouldAttack(float distanceToPlayer)
     {
         return distanceToPlayer <= attackRange && 
                Time.time > lastAttackTime + attackCooldown;
     }
 
-    private void HandleAttack()
+    public void HandleAttack()
     {
         if (!isChargingAttack)
         {
@@ -109,86 +123,88 @@ public class EnemyChase_Attack : MonoBehaviour
         }
         else
         {
-            // Continue charging toward the player
-            rb.velocity = chargeDirection * (chaseSpeed * chargeSpeedMultiplier);
+            // Optional: Keep moving during charge
+            rb.velocity = chargeDirection * chaseSpeed * 2f;
         }
     }
 
-    private void StartCharge()
+    public void StartCharge()
     {
         isChargingAttack = true;
         chargeStartTime = Time.time;
-        chargeDirection = (player.position - transform.position).normalized;
-        anim.SetTrigger("StartCharge"); // Optional: Add a charge animation
+        chargeDirection = (player.position - transform.position).normalized; // Store direction
+        rb.velocity = chargeDirection * chaseSpeed * 2f; // Charge faster than chase speed
     }
 
-    private void ExecuteAttack()
+    public void ExecuteAttack()
     {
-        isChargingAttack = false;
         lastAttackTime = Time.time;
+        isChargingAttack = false;
 
-        // Detect hits in front of the enemy
-        Vector2 attackCenter = (Vector2)transform.position + chargeDirection * (attackSize.x / 2);
-        Collider2D[] hitPlayers = Physics2D.OverlapBoxAll(attackCenter, attackSize, 0, playerLayer);
+        Vector2 attackPos = (Vector2)transform.position + chargeDirection * (attackSize.x / 2);
+        Collider2D[] hitPlayers = Physics2D.OverlapBoxAll(
+            attackPos, // Position adjusted forward
+            attackSize, 
+            0f, 
+            playerLayer);
 
         foreach (Collider2D playerCollider in hitPlayers)
         {
             playerCollider.GetComponent<PlayerHealth>()?.TakeDamage(attackDamage);
         }
-
-        rb.velocity = Vector2.zero; // Stop after attack
     }
 
-    private void ChasePlayer(float distanceToPlayer)
+    public void ChasePlayer(float distanceToPlayer)
     {
         if (distanceToPlayer > stoppingDistance)
         {
             Vector2 direction = (player.position - transform.position).normalized;
             rb.velocity = new Vector2(direction.x * chaseSpeed, rb.velocity.y);
-
-            // Flip sprite based on movement direction
-            if (Mathf.Abs(direction.x) > 0.1f)
-            {
-                transform.localScale = new Vector3(
-                    direction.x > 0 ? -1 : 1, 
-                    1, 
-                    1);
-            }
+            
+            // Flip based on movement direction
+            transform.localScale = new Vector3(
+                direction.x > 0 ? -1 : 1, 
+                1, 
+                1);
         }
         else
         {
-            rb.velocity = new Vector2(0, rb.velocity.y);
+            rb.velocity = Vector2.zero;
         }
     }
 
-    private void Idle()
+    public void Idle()
     {
         rb.velocity = Vector2.zero;
         isChargingAttack = false;
     }
 
-    private void UpdateAnimations()
+    public void UpdateAnimations()
     {
-        anim.SetBool("IsMoving", Mathf.Abs(rb.velocity.x) > 0.1f && !isChargingAttack);
+        bool isMoving = Mathf.Abs(rb.velocity.x) > 0.1f;
+        bool isAttacking = Time.time < lastAttackTime + 0.5f;
+        
+        anim.SetBool("IsMoving", isMoving && !isChargingAttack);
+        anim.SetBool("IsAttacking", isAttacking);
         anim.SetBool("IsCharging", isChargingAttack);
     }
 
-    private void OnDrawGizmosSelected()
+    public void OnDrawGizmosSelected()
     {
         // Detection range
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectionRange);
 
+        // Rear detection range
+        Gizmos.color = new Color(1f, 0.5f, 0f);
+        Gizmos.DrawWireSphere(transform.position, detectionRange * rearDetectionReduction);
+
         // Attack range
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
 
-        // Charge attack area
-        if (isChargingAttack)
-        {
-            Gizmos.color = Color.magenta;
-            Vector2 attackCenter = (Vector2)transform.position + chargeDirection * (attackSize.x / 2);
-            Gizmos.DrawWireCube(attackCenter, attackSize);
-        }
+        // Attack area
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireCube(transform.position, attackSize);
     }
 }
