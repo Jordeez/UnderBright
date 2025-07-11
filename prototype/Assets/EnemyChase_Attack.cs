@@ -147,6 +147,7 @@ public class EnemyChase_Attack : MonoBehaviour
             attackSize, 
             0f, 
             playerLayer);
+        Debug.Log($"Hit {hitPlayers.Length} objects");  // Should show >0 when player is in range
 
         foreach (Collider2D playerCollider in hitPlayers)
         {
