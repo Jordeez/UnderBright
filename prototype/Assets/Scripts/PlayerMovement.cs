@@ -120,7 +120,7 @@ public class PlayerMovement : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D c)
     {
-        if (c.gameObject.CompareTag("Ground"))
+        if (c.gameObject.CompareTag("Ground") || c.gameObject.CompareTag("OneWayPlatform"))
         {
 
             isGrounded = true;
@@ -132,13 +132,13 @@ public class PlayerMovement : MonoBehaviour
 
     void OnCollisionStay2D(Collision2D c)
     {
-        if (c.gameObject.CompareTag("Ground"))
+        if (c.gameObject.CompareTag("Ground") || c.gameObject.CompareTag("OneWayPlatform"))
             lastGroundedTime = groundedTolerance;
     }
 
     void OnCollisionExit2D(Collision2D c)
     {
-        if (c.gameObject.CompareTag("Ground"))
+        if (c.gameObject.CompareTag("Ground") || c.gameObject.CompareTag("OneWayPlatform"))
             isGrounded = false;
     }
 }
