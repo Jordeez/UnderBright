@@ -60,11 +60,11 @@ public class PlayerMovement : MonoBehaviour
         // Handle ledge hanging when crouching
         if (isCrouching && isOnLedge)
         {
-            rb.velocity = new Vector2(rb.velocity.x, 0); // Stop vertical movement
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0); // Stop vertical movement
         }
 
         // Jump handling with coyote time
-        if (Input.GetKeyDown(KeyCode.W) 
+        if (Input.GetKeyDown(KeyCode.W)) 
         {
             if ((isGrounded || Time.time < lastGroundedTime + ledgeCoyoteTime) && !knock.IsKnockedBack)
             {
@@ -127,12 +127,12 @@ public class PlayerMovement : MonoBehaviour
         // Prevent movement while crouching on ledge
         if (isCrouching && isOnLedge)
         {
-            rb.velocity = new Vector2(0, rb.velocity.y);
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             return;
         }
 
         float targetSpeed = moveInput * topSpeed;
-        float speedDif = targetSpeed - rb.velocity.x;
+        float speedDif = targetSpeed - rb.linearVelocity.x;
         float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : deceleration;
         float movement = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, velPower) * Mathf.Sign(speedDif);
 
@@ -141,10 +141,10 @@ public class PlayerMovement : MonoBehaviour
 
     void ApplyFriction()
     {
-        if (isGrounded && Mathf.Abs(moveInput) < 0.01f && Mathf.Abs(rb.velocity.x) > 0.01f)
+        if (isGrounded && Mathf.Abs(moveInput) < 0.01f && Mathf.Abs(rb.linearVelocity.x) > 0.01f)
         {
-            float amount = Mathf.Min(Mathf.Abs(rb.velocity.x), Mathf.Abs(frictionAmount));
-            amount *= Mathf.Sign(rb.velocity.x);
+            float amount = Mathf.Min(Mathf.Abs(rb.linearVelocity.x), Mathf.Abs(frictionAmount));
+            amount *= Mathf.Sign(rb.linearVelocity.x);
             rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse);
         }
     }
@@ -153,16 +153,16 @@ public class PlayerMovement : MonoBehaviour
     {
         isGrounded = false;
         isJumping = true;
-        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         anim.SetTrigger("Jump");
         anim.SetBool("isGrounded", false);
     }
 
     void OnJumpUp()
     {
-        if (rb.velocity.y > 0 && isJumping)
+        if (rb.linearVelocity.y > 0 && isJumping)
         {
-            float cut = rb.velocity.y * (1 - jumpCutMultiplier);
+            float cut = rb.linearVelocity.y * (1 - jumpCutMultiplier);
             rb.AddForce(Vector2.down * cut, ForceMode2D.Impulse);
         }
         isJumping = false;
