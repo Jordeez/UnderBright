@@ -19,7 +19,10 @@ public class EnemyChase_Attack : MonoBehaviour
     [SerializeField] private float attackCooldown = 2f;
     [SerializeField] private float chargeTime = 0.5f;
     [SerializeField] private int attackDamage = 1;
-    [SerializeField] private Vector2 attackSize = new Vector2(5f, 5f);
+    [SerializeField] private Vector2 attackSize = new Vector2(1.5f, 1.5f);
+    [SerializeField] private float attackKnockback = 5f;
+    [SerializeField] private float hitFreezeDuration = 0.1f;
+    [SerializeField] private GameObject hitEffectPrefab;
 
     // Components
     private Rigidbody2D rb;
@@ -58,15 +61,14 @@ public class EnemyChase_Attack : MonoBehaviour
                 transform.position, 
                 chargeDirection, 
                 0.5f, 
-                LayerMask.GetMask("Ground")); // Adjust layer as needed
+                LayerMask.GetMask("Ground"));
 
             if (hit.collider != null)
             {
                 isChargingAttack = false;
-                rb.linearVelocity = Vector2.zero;
+                rb.velocity = Vector2.zero;
             }
         }
-        
         
         if (distanceToPlayer <= effectiveDetectionRange)
         {
@@ -124,8 +126,8 @@ public class EnemyChase_Attack : MonoBehaviour
         }
         else
         {
-            // Optional: Keep moving during charge
-            rb.linearVelocity = chargeDirection * chaseSpeed * 2f;
+            // Keep moving during charge
+            rb.velocity = chargeDirection * chaseSpeed * 2f;
         }
     }
 
@@ -133,26 +135,61 @@ public class EnemyChase_Attack : MonoBehaviour
     {
         isChargingAttack = true;
         chargeStartTime = Time.time;
-        chargeDirection = (player.position - transform.position).normalized; // Store direction
-        rb.linearVelocity = chargeDirection * chaseSpeed * 2f; // Charge faster than chase speed
+        chargeDirection = (player.position - transform.position).normalized;
+        rb.velocity = chargeDirection * chaseSpeed * 2f;
+        anim.SetTrigger("StartCharge");
     }
 
     public void ExecuteAttack()
     {
         lastAttackTime = Time.time;
         isChargingAttack = false;
+        anim.SetTrigger("ExecuteAttack");
 
-        Vector2 attackPos = (Vector2)transform.position + chargeDirection * (attackSize.x / 2);
+        Vector2 attackPos = (Vector2)transform.position + chargeDirection * (attackSize.x * 0.6f);
+        
         Collider2D[] hitPlayers = Physics2D.OverlapBoxAll(
-            attackPos, // Position adjusted forward
+            attackPos, 
             attackSize, 
-            0f, 
+            Vector2.Angle(Vector2.right, chargeDirection), 
             playerLayer);
-        Debug.Log($"Hit {hitPlayers.Length} objects");  // Should show >0 when player is in range
 
+        bool hitConfirmed = false;
+        
         foreach (Collider2D playerCollider in hitPlayers)
         {
-            playerCollider.GetComponent<PlayerHealth>()?.TakeDamage(attackDamage);
+            if (playerCollider.CompareTag("Player"))
+            {
+                // Apply damage
+                if (playerCollider.TryGetComponent<PlayerHealth>(out var health))
+                {
+                    health.TakeDamage(attackDamage);
+                    hitConfirmed = true;
+                }
+
+                // Apply knockback
+                if (playerCollider.TryGetComponent<IKnockbackable>(out var knockback))
+                {
+                    knockback.ApplyKnockback(chargeDirection, attackKnockback);
+                }
+            }
+        }
+
+        // Visual feedback
+        if (hitConfirmed)
+        {
+            if (hitEffectPrefab) Instantiate(hitEffectPrefab, attackPos, Quaternion.identity);
+            StartCoroutine(HitFreezeEffect());
+        }
+    }
+
+    private IEnumerator HitFreezeEffect()
+    {
+        if (hitFreezeDuration > 0)
+        {
+            Time.timeScale = 0f;
+            yield return new WaitForSecondsRealtime(hitFreezeDuration);
+            Time.timeScale = 1f;
         }
     }
 
@@ -161,7 +198,7 @@ public class EnemyChase_Attack : MonoBehaviour
         if (distanceToPlayer > stoppingDistance)
         {
             Vector2 direction = (player.position - transform.position).normalized;
-            rb.linearVelocity = new Vector2(direction.x * chaseSpeed, rb.linearVelocity.y);
+            rb.velocity = new Vector2(direction.x * chaseSpeed, rb.velocity.y);
             
             // Flip based on movement direction
             transform.localScale = new Vector3(
@@ -171,19 +208,19 @@ public class EnemyChase_Attack : MonoBehaviour
         }
         else
         {
-            rb.linearVelocity = Vector2.zero;
+            rb.velocity = Vector2.zero;
         }
     }
 
     public void Idle()
     {
-        rb.linearVelocity = Vector2.zero;
+        rb.velocity = Vector2.zero;
         isChargingAttack = false;
     }
 
     public void UpdateAnimations()
     {
-        bool isMoving = Mathf.Abs(rb.linearVelocity.x) > 0.1f;
+        bool isMoving = Mathf.Abs(rb.velocity.x) > 0.1f;
         bool isAttacking = Time.time < lastAttackTime + 0.5f;
         
         anim.SetBool("IsMoving", isMoving && !isChargingAttack);
@@ -205,8 +242,13 @@ public class EnemyChase_Attack : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
 
-        // Attack area
+        // Attack area (now shows direction)
         Gizmos.color = Color.magenta;
-        Gizmos.DrawWireCube(transform.position, attackSize);
+        Vector2 attackPos = (Vector2)transform.position + (chargeDirection != Vector2.zero ? chargeDirection : Vector2.right) * (attackSize.x * 0.6f);
+        Gizmos.DrawWireCube(attackPos, attackSize);
+        
+        // Attack direction indicator
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawLine(transform.position, attackPos);
     }
 }
