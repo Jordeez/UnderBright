@@ -14,14 +14,21 @@ public class EnemyStats : MonoBehaviour
     [Header("Experience")]
     [SerializeField] private int experienceValue = 5;
 
-    private void Start()
+    private Animator anim;
+    private bool isDead = false;
+
+    void Start()
     {
         currentHealth = maxHealth;
+        anim = GetComponent<Animator>();
     }
 
     public void TakeDamage(int amount)
     {
+        if (isDead) return;
+
         currentHealth -= amount;
+
         if (currentHealth <= 0)
         {
             Die();
@@ -30,8 +37,29 @@ public class EnemyStats : MonoBehaviour
 
     private void Die()
     {
-        // Handle enemy death (e.g., play animation, drop loot, etc.)
-        Destroy(gameObject);
+        isDead = true;
+
+        // Trigger death animation
+        if (anim != null)
+            anim.SetTrigger("death");
+
+        // Disable all scripts except this one
+        MonoBehaviour[] allScripts = GetComponents<MonoBehaviour>();
+        foreach (MonoBehaviour script in allScripts)
+        {
+            if (script != this)
+                script.enabled = false;
+        }
+
+        // Optionally disable colliders
+        Collider2D[] colliders = GetComponents<Collider2D>();
+        foreach (Collider2D col in colliders)
+        {
+            col.enabled = false;
+        }
+
+        // Destroy after animation ends (adjust time to your animation)
+        Destroy(gameObject, 1f);
     }
 
     public int GetDamage()

@@ -2,146 +2,89 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class PlayerAttack : MonoBehaviour
 {
     [Header("Attack Settings")]
     public Transform attackPoint;
     public float attackRange = 0.5f;
     public LayerMask enemyLayers;
-    public int baseDamage = 10;
+    public int damage = 10;
     public float knockbackForce = 5f;
-    public float comboResetTime = 1f;
-    public Vector2 hitboxSize = new Vector2(1f, 1f); // For box-shaped hitbox
-    
-    [Header("Advanced")]
-    public bool useBoxHitbox = false; // Toggle between circle and box hitbox
-    public bool canChainCombo = true;
-    public float hitPauseDuration = 0.1f; // Screen freeze on hit
-    
+    public float hitPauseDuration = 0.1f;
+    public Vector2 boxSize = new Vector2(1f, 1f);
+    public bool useBoxHitbox = false;
+
     private Animator anim;
-    private bool isAttacking;
-    private int comboStep;
-    private float lastAttackTime;
-    private bool comboReady = true;
-    
+    private bool isAttacking = false;
+
     void Awake()
     {
         anim = GetComponent<Animator>();
     }
-    
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.J) && CanAttack())
-            StartAttack();
-
-        CheckIfAttackFinished();
-        CheckComboReset();
-    }
-
-    bool CanAttack()
-    {
-        return !isAttacking && comboReady;
-    }
-
-    void StartAttack()
-    {
-        isAttacking = true;
-        lastAttackTime = Time.time;
-        
-        // Reset combo if too much time passed between attacks
-        if (Time.time - lastAttackTime > comboResetTime)
-            comboStep = 0;
-            
-        comboStep = (comboStep % 2) + 1;
-
-        if (comboStep == 1) 
-            anim.SetTrigger("attack1");
-        else 
-            anim.SetTrigger("attack2");
-    }
-
-    void CheckIfAttackFinished()
-    {
-        if (!isAttacking) return;
-
-        AnimatorStateInfo st = anim.GetCurrentAnimatorStateInfo(0);
-        
-        if (st.IsTag("Attack") && st.normalizedTime >= 1f)
-            isAttacking = false;
-    }
-    
-    void CheckComboReset()
-    {
-        if (isAttacking) return;
-        
-        if (Time.time - lastAttackTime > comboResetTime)
+        if (Input.GetKeyDown(KeyCode.J) && !isAttacking)
         {
-            comboStep = 0;
-            comboReady = true;
+            Attack();
         }
     }
 
+    void Attack()
+    {
+        isAttacking = true;
+        anim.SetTrigger("attack");
+    }
+
+    // Call this via Animation Event at the hit frame
     public void DealDamage()
     {
         Collider2D[] hits;
-        
+
         if (useBoxHitbox)
         {
-            hits = Physics2D.OverlapBoxAll(
-                attackPoint.position, 
-                hitboxSize, 
-                0f, 
-                enemyLayers);
+            hits = Physics2D.OverlapBoxAll(attackPoint.position, boxSize, 0f, enemyLayers);
         }
         else
         {
-            hits = Physics2D.OverlapCircleAll(
-                attackPoint.position, 
-                attackRange, 
-                enemyLayers);
+            hits = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
         }
 
-        bool hitConnected = false;
-        
-        foreach (var hit in hits)
+        bool hitSomething = false;
+
+        foreach (Collider2D hit in hits)
         {
-            // Calculate damage with potential combo multiplier
-            int totalDamage = baseDamage;
-            if (comboStep == 2) totalDamage = Mathf.RoundToInt(baseDamage * 1.3f);
-            
-            /* Apply damage
-            HealthSystem health = hit.GetComponent<HealthSystem>();
-            if (health != null)
+            // Apply damage
+            EnemyStats stats = hit.GetComponent<EnemyStats>();
+            if (stats != null)
             {
-                health.TakeDamage(totalDamage);
-                hitConnected = true;
+                stats.TakeDamage(damage);
+                hitSomething = true;
             }
-            */
-            
-            // Apply knockback
+
+            // Optional knockback
             KnockbackHandler knockback = hit.GetComponent<KnockbackHandler>();
             if (knockback != null)
             {
-                Vector2 knockbackDirection = (hit.transform.position - transform.position).normalized;
-                knockback.ReceiveHit(knockbackDirection, knockbackForce);
+                Vector2 dir = (hit.transform.position - transform.position).normalized;
+                knockback.ReceiveHit(dir, knockbackForce);
+                hitSomething = true;
             }
         }
-        
-        // Hit pause effect
-        if (hitConnected && hitPauseDuration > 0)
+
+        if (hitSomething && hitPauseDuration > 0f)
         {
-            StartCoroutine(HitPauseEffect());
-        }
-        
-        // Combo management
-        if (!canChainCombo)
-        {
-            comboReady = false;
+            StartCoroutine(HitPause());
         }
     }
-    
-    System.Collections.IEnumerator HitPauseEffect()
+
+
+    public void EndAttack() // Call this at end of attack animation
+    {
+        isAttacking = false;
+    }
+
+    IEnumerator HitPause()
     {
         Time.timeScale = 0.1f;
         yield return new WaitForSecondsRealtime(hitPauseDuration);
@@ -151,16 +94,11 @@ public class PlayerAttack : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         if (!attackPoint) return;
-        
         Gizmos.color = Color.red;
-        
+
         if (useBoxHitbox)
-        {
-            Gizmos.DrawWireCube(attackPoint.position, hitboxSize);
-        }
+            Gizmos.DrawWireCube(attackPoint.position, boxSize);
         else
-        {
             Gizmos.DrawWireSphere(attackPoint.position, attackRange);
-        }
     }
 }

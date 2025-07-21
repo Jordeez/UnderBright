@@ -20,10 +20,8 @@ AnimationClip:
   m_PPtrCurves:
   - serializedVersion: 2
     curve:
-    - time: 0
-      value: {fileID: 1656808544, guid: 98968a60526286d449b8089e47e87266, type: 3}
     - time: 0.083333336
-      value: {fileID: 1861179411, guid: 98968a60526286d449b8089e47e87266, type: 3}
+      value: {fileID: 1656808544, guid: 98968a60526286d449b8089e47e87266, type: 3}
     - time: 0.16666667
       value: {fileID: 1607410488, guid: 98968a60526286d449b8089e47e87266, type: 3}
     - time: 0.25
@@ -51,7 +49,6 @@ AnimationClip:
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
     - {fileID: 1656808544, guid: 98968a60526286d449b8089e47e87266, type: 3}
-    - {fileID: 1861179411, guid: 98968a60526286d449b8089e47e87266, type: 3}
     - {fileID: 1607410488, guid: 98968a60526286d449b8089e47e87266, type: 3}
     - {fileID: -1837072456, guid: 98968a60526286d449b8089e47e87266, type: 3}
   m_AnimationClipSettings:
@@ -78,4 +75,18 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.16666667
+    functionName: DealDamage
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.33333334
+    functionName: EndAttack
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

@@ -9,70 +9,77 @@ public class EnemyChase_Attack : MonoBehaviour
     [SerializeField] private float detectionRange = 5f;
     [SerializeField] private float attackRange = 1f;
     [SerializeField] private LayerMask playerLayer;
-    [SerializeField] [Range(0,1)] private float rearDetectionReduction = 0.5f;
+    [SerializeField, Range(0, 1)] private float rearDetectionReduction = 0.5f;
 
     [Header("Chase Settings")]
     [SerializeField] private float chaseSpeed = 3f;
     [SerializeField] private float stoppingDistance = 0.5f;
-    
+
     [Header("Attack Settings")]
     [SerializeField] private float attackCooldown = 2f;
     [SerializeField] private float chargeTime = 0.5f;
     [SerializeField] private int attackDamage = 1;
     [SerializeField] private Vector2 attackSize = new Vector2(1.5f, 1.5f);
     [SerializeField] private float attackKnockback = 5f;
+    [SerializeField] private float selfKnockback = 3f;
     [SerializeField] private float hitFreezeDuration = 0.1f;
     [SerializeField] private GameObject hitEffectPrefab;
 
-    // Components
     private Rigidbody2D rb;
     private Animator anim;
     private EnemyAI enemyAI;
     private Transform player;
 
-    // State variables
     private float lastAttackTime;
     private bool isChargingAttack;
     private float chargeStartTime;
+    private Vector2 chargeDirection;
+    private Vector2 targetAttackPosition;
     private bool wasPatrolling;
-    public Vector2 chargeDirection;
 
-    public void Awake()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         enemyAI = GetComponent<EnemyAI>();
         player = GameObject.FindWithTag("Player")?.transform;
+
+        // Disable physical push
+        rb.mass = 999f; // or set constraints as well
+        rb.sharedMaterial = new PhysicsMaterial2D { friction = 0, bounciness = 0 };
     }
 
-    public void Update()
+    private void Update()
     {
         if (player == null) return;
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
         bool playerInFront = IsPlayerInFront();
-
         float effectiveDetectionRange = playerInFront ? detectionRange : detectionRange * rearDetectionReduction;
 
         if (isChargingAttack)
         {
-            // Raycast forward to detect walls
-            RaycastHit2D hit = Physics2D.Raycast(
-                transform.position, 
-                chargeDirection, 
-                0.5f, 
-                LayerMask.GetMask("Ground"));
-
+            // Stop on wall
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, chargeDirection, 0.5f, LayerMask.GetMask("Ground"));
             if (hit.collider != null)
             {
-                isChargingAttack = false;
-                rb.linearVelocity = Vector2.zero;
+                StopDash();
+                return;
             }
+
+            // Reached dash duration
+            if (Time.time >= chargeStartTime + chargeTime)
+            {
+                StopDash();
+                return;
+            }
+
+            rb.linearVelocity = chargeDirection * chaseSpeed * 2f;
         }
-        
+
         if (distanceToPlayer <= effectiveDetectionRange)
         {
-            // Disable patrolling when player is detected
+            anim.SetBool("isHostile", true);
             if (enemyAI.enabled)
             {
                 wasPatrolling = true;
@@ -90,7 +97,6 @@ public class EnemyChase_Attack : MonoBehaviour
         }
         else
         {
-            // Re-enable patrolling when player is out of range
             if (wasPatrolling)
             {
                 enemyAI.enabled = true;
@@ -102,109 +108,104 @@ public class EnemyChase_Attack : MonoBehaviour
         UpdateAnimations();
     }
 
-    public bool IsPlayerInFront()
+    private bool IsPlayerInFront()
     {
         Vector2 toPlayer = (player.position - transform.position).normalized;
         return Vector2.Dot(toPlayer, transform.right) > 0;
     }
 
-    public bool ShouldAttack(float distanceToPlayer)
+    private bool ShouldAttack(float distanceToPlayer)
     {
-        return distanceToPlayer <= attackRange && 
+        return distanceToPlayer <= attackRange &&
                Time.time > lastAttackTime + attackCooldown;
     }
 
-    public void HandleAttack()
+    private void HandleAttack()
     {
         if (!isChargingAttack)
         {
             StartCharge();
         }
-        else if (Time.time >= chargeStartTime + chargeTime)
-        {
-            ExecuteAttack();
-        }
         else
         {
-            // Keep moving during charge
-            rb.linearVelocity = chargeDirection * chaseSpeed * 2f;
+            CheckHitDuringDash();
         }
     }
 
-    public void StartCharge()
+    private void StartCharge()
     {
         isChargingAttack = true;
         chargeStartTime = Time.time;
-        chargeDirection = (player.position - transform.position).normalized;
+
+        // Lock in the player's last known position
+        targetAttackPosition = player.position;
+        Vector2 direction = (targetAttackPosition - (Vector2)transform.position).normalized;
+        chargeDirection = new Vector2(Mathf.Sign(direction.x), 0f); // left/right only
+
         rb.linearVelocity = chargeDirection * chaseSpeed * 2f;
         anim.SetTrigger("StartCharge");
     }
 
-    public void ExecuteAttack()
+    private void CheckHitDuringDash()
     {
-        lastAttackTime = Time.time;
-        isChargingAttack = false;
-        anim.SetTrigger("ExecuteAttack");
-
         Vector2 attackPos = (Vector2)transform.position + chargeDirection * (attackSize.x * 0.6f);
-        
-        Collider2D[] hitPlayers = Physics2D.OverlapBoxAll(
-            attackPos, 
-            attackSize, 
-            Vector2.Angle(Vector2.right, chargeDirection), 
-            playerLayer);
 
-        bool hitConfirmed = false;
-        
-        foreach (Collider2D playerCollider in hitPlayers)
+        Collider2D[] hitPlayers = Physics2D.OverlapBoxAll(
+            attackPos, attackSize, 0f, playerLayer);
+
+        foreach (Collider2D col in hitPlayers)
         {
-            if (playerCollider.CompareTag("Player"))
+            if (col.CompareTag("Player"))
             {
-                // Apply damage
-                if (playerCollider.TryGetComponent<PlayerHealth>(out var health))
+                if (col.TryGetComponent<PlayerHealth>(out var health))
                 {
                     health.TakeDamage(attackDamage);
-                    hitConfirmed = true;
                 }
 
-                /* Apply knockback
-                if (playerCollider.TryGetComponent<IKnockbackable>(out var knockback))
-                {
-                    knockback.ApplyKnockback(chargeDirection, attackKnockback);
-                }
-                */
+                if (hitEffectPrefab)
+                    Instantiate(hitEffectPrefab, attackPos, Quaternion.identity);
+
+                StartCoroutine(HitFreezeEffect());
+                ApplySelfKnockback();
+
+                StopDash();
+                break;
             }
         }
+    }
 
-        // Visual feedback
-        if (hitConfirmed)
-        {
-            if (hitEffectPrefab) Instantiate(hitEffectPrefab, attackPos, Quaternion.identity);
-            StartCoroutine(HitFreezeEffect());
-        }
+    private void ApplySelfKnockback()
+    {
+        rb.linearVelocity = -chargeDirection * selfKnockback;
+    }
+
+    private void StopDash()
+    {
+        isChargingAttack = false;
+        rb.linearVelocity = Vector2.zero;
+        lastAttackTime = Time.time;
+        anim.SetTrigger("ExecuteAttack");
     }
 
     private IEnumerator HitFreezeEffect()
     {
-        if (hitFreezeDuration > 0)
-        {
-            Time.timeScale = 0f;
-            yield return new WaitForSecondsRealtime(hitFreezeDuration);
-            Time.timeScale = 1f;
-        }
+        Time.timeScale = 0f;
+        yield return new WaitForSecondsRealtime(hitFreezeDuration);
+        yield return new WaitForSecondsRealtime(hitFreezeDuration);
+        Time.timeScale = 1f;
     }
 
-    public void ChasePlayer(float distanceToPlayer)
+    private void ChasePlayer(float distanceToPlayer)
     {
+
         if (distanceToPlayer > stoppingDistance)
         {
             Vector2 direction = (player.position - transform.position).normalized;
             rb.linearVelocity = new Vector2(direction.x * chaseSpeed, rb.linearVelocity.y);
-            
-            // Flip based on movement direction
+
             transform.localScale = new Vector3(
-                direction.x > 0 ? -1 : 1, 
-                1, 
+                direction.x > 0 ? -1 : 1,
+                1,
                 1);
         }
         else
@@ -213,42 +214,40 @@ public class EnemyChase_Attack : MonoBehaviour
         }
     }
 
-    public void Idle()
+    private void Idle()
     {
+        anim.SetBool("isHostile", false);
         rb.linearVelocity = Vector2.zero;
         isChargingAttack = false;
     }
 
-    public void UpdateAnimations()
+    private void UpdateAnimations()
     {
         bool isMoving = Mathf.Abs(rb.linearVelocity.x) > 0.1f;
         bool isAttacking = Time.time < lastAttackTime + 0.5f;
-        
+
+        /*
         anim.SetBool("IsMoving", isMoving && !isChargingAttack);
         anim.SetBool("IsAttacking", isAttacking);
         anim.SetBool("IsCharging", isChargingAttack);
+        */
     }
 
-    public void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected()
     {
-        // Detection range
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectionRange);
 
-        // Rear detection range
         Gizmos.color = new Color(1f, 0.5f, 0f);
         Gizmos.DrawWireSphere(transform.position, detectionRange * rearDetectionReduction);
 
-        // Attack range
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
 
-        // Attack area (now shows direction)
         Gizmos.color = Color.magenta;
         Vector2 attackPos = (Vector2)transform.position + (chargeDirection != Vector2.zero ? chargeDirection : Vector2.right) * (attackSize.x * 0.6f);
         Gizmos.DrawWireCube(attackPos, attackSize);
-        
-        // Attack direction indicator
+
         Gizmos.color = Color.cyan;
         Gizmos.DrawLine(transform.position, attackPos);
     }
