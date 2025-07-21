@@ -66,7 +66,7 @@ public class EnemyChase_Attack : MonoBehaviour
             if (hit.collider != null)
             {
                 isChargingAttack = false;
-                rb.velocity = Vector2.zero;
+                rb.linearVelocity = Vector2.zero;
             }
         }
         
@@ -127,7 +127,7 @@ public class EnemyChase_Attack : MonoBehaviour
         else
         {
             // Keep moving during charge
-            rb.velocity = chargeDirection * chaseSpeed * 2f;
+            rb.linearVelocity = chargeDirection * chaseSpeed * 2f;
         }
     }
 
@@ -136,7 +136,7 @@ public class EnemyChase_Attack : MonoBehaviour
         isChargingAttack = true;
         chargeStartTime = Time.time;
         chargeDirection = (player.position - transform.position).normalized;
-        rb.velocity = chargeDirection * chaseSpeed * 2f;
+        rb.linearVelocity = chargeDirection * chaseSpeed * 2f;
         anim.SetTrigger("StartCharge");
     }
 
@@ -167,11 +167,12 @@ public class EnemyChase_Attack : MonoBehaviour
                     hitConfirmed = true;
                 }
 
-                // Apply knockback
+                /* Apply knockback
                 if (playerCollider.TryGetComponent<IKnockbackable>(out var knockback))
                 {
                     knockback.ApplyKnockback(chargeDirection, attackKnockback);
                 }
+                */
             }
         }
 
@@ -198,7 +199,7 @@ public class EnemyChase_Attack : MonoBehaviour
         if (distanceToPlayer > stoppingDistance)
         {
             Vector2 direction = (player.position - transform.position).normalized;
-            rb.velocity = new Vector2(direction.x * chaseSpeed, rb.velocity.y);
+            rb.linearVelocity = new Vector2(direction.x * chaseSpeed, rb.linearVelocity.y);
             
             // Flip based on movement direction
             transform.localScale = new Vector3(
@@ -208,19 +209,19 @@ public class EnemyChase_Attack : MonoBehaviour
         }
         else
         {
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
         }
     }
 
     public void Idle()
     {
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
         isChargingAttack = false;
     }
 
     public void UpdateAnimations()
     {
-        bool isMoving = Mathf.Abs(rb.velocity.x) > 0.1f;
+        bool isMoving = Mathf.Abs(rb.linearVelocity.x) > 0.1f;
         bool isAttacking = Time.time < lastAttackTime + 0.5f;
         
         anim.SetBool("IsMoving", isMoving && !isChargingAttack);

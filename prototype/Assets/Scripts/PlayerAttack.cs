@@ -110,13 +110,14 @@ public class PlayerAttack : MonoBehaviour
             int totalDamage = baseDamage;
             if (comboStep == 2) totalDamage = Mathf.RoundToInt(baseDamage * 1.3f);
             
-            // Apply damage
+            /* Apply damage
             HealthSystem health = hit.GetComponent<HealthSystem>();
             if (health != null)
             {
                 health.TakeDamage(totalDamage);
                 hitConnected = true;
             }
+            */
             
             // Apply knockback
             KnockbackHandler knockback = hit.GetComponent<KnockbackHandler>();

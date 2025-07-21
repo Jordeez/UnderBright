@@ -1,7 +1,13 @@
 using UnityEngine;
+using Cinemachine;
+
+
 
 public class PlayerMovement : MonoBehaviour
 {
+    private float originalGravity;
+
+
     [Header("References")]
     public Rigidbody2D rb;
     private KnockbackHandler knock;
@@ -9,22 +15,43 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer spriteRenderer;
 
     [Header("Horizontal movement")]
-    public float topSpeed = 8f;   
-    public float acceleration = 80f;    
-    public float deceleration = 60f;   
-    public float velPower = 1f;  
-    public float frictionAmount = 0.2f;   
+    public float topSpeed = 8f;
+    public float acceleration = 80f;
+    public float deceleration = 60f;
+    public float velPower = 1f;
+    public float frictionAmount = 0.2f;
 
     [Header("Jump")]
-    public float jumpForce = 10f;
-    public float jumpCutMultiplier = 0.5f;  
-    public float ledgeCoyoteTime = 0.1f; // Time window after leaving ledge where you can still jump
-    public float ledgeHangThreshold = 0.5f; // How far player can hang off ledge before falling
+    public float jumpForce = 14f;
+    public float jumpCutMultiplier = 0.5f;
+    public float fallGravityMultiplier = 2.5f;
+    public float lowJumpGravityMultiplier = 2f;
+    public float ledgeCoyoteTime = 0.1f;
+    public float ledgeHangThreshold = 0.5f;
 
-    private float moveInput;              
+    [Header("Dash")]
+    public float dashForce = 15f;
+    public float dashDuration = 0.2f;
+    public float dashCooldown = 0.5f;
+    public float dashInputLockDuration = 0.15f;
+    private bool canDash = true;
+    private bool isDashing = false;
+    private float dashTimer;
+    private Vector2 dashDirection;
+    private float dashInputLockTimer;
+    private bool isInputLocked = false;
+
+
+    [Header("Ghost Trail (Sprite)")]
+    public GameObject dashGhostPrefab;
+    public float ghostSpawnInterval = 0.05f;
+    public float ghostLifetime = 0.3f;
+    private float lastGhostTime;
+
+    private float moveInput;
     private bool isGrounded;
     private bool isJumping;
-    private float lastGroundedTime;        
+    private float lastGroundedTime;
     private const float groundedTolerance = 0.1f;
     private bool isCrouching;
     private bool isOnLedge;
@@ -32,13 +59,23 @@ public class PlayerMovement : MonoBehaviour
     private float originalColliderOffsetY;
     private BoxCollider2D boxCollider;
 
+    [SerializeField] private CinemachineImpulseSource dashImpulseSource;
+
+
+    public bool IsDashing()
+    {
+        return isDashing;
+    }
+
     void Awake()
     {
+        originalGravity = rb.gravityScale;
+
         knock = GetComponent<KnockbackHandler>();
         anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         boxCollider = GetComponent<BoxCollider2D>();
-        
+
         if (boxCollider != null)
         {
             originalColliderSizeY = boxCollider.size.y;
@@ -48,66 +85,99 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // Handle movement input
+        if (isDashing || isInputLocked) return;
+
         moveInput = 0;
         if (Input.GetKey(KeyCode.A)) moveInput = -1;
         if (Input.GetKey(KeyCode.D)) moveInput = 1;
 
-        // Handle crouching
         isCrouching = Input.GetKey(KeyCode.S);
         anim.SetBool("isCrouching", isCrouching);
 
-        // Handle ledge hanging when crouching
         if (isCrouching && isOnLedge)
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0); // Stop vertical movement
-        }
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
 
-        // Jump handling with coyote time
-        if (Input.GetKeyDown(KeyCode.W)) 
+        if (Input.GetKeyDown(KeyCode.W))
         {
             if ((isGrounded || Time.time < lastGroundedTime + ledgeCoyoteTime) && !knock.IsKnockedBack)
-            {
                 Jump();
-            }
-        }
-        
-        if (Input.GetKeyUp(KeyCode.W))
-        {
-            OnJumpUp();
         }
 
-        // Sprite flipping
+        if (Input.GetKeyUp(KeyCode.W))
+            OnJumpUp();
+
+        if (Input.GetKeyDown(KeyCode.K))
+            TryDash();
+
         if (moveInput < 0) spriteRenderer.flipX = true;
         if (moveInput > 0) spriteRenderer.flipX = false;
 
-        // Update grounded tolerance timer
-        if (isGrounded)
-        {
-            lastGroundedTime = Time.time;
-        }
+        if (isGrounded) lastGroundedTime = Time.time;
     }
 
     void FixedUpdate()
     {
+        if (isDashing)
+        {
+            // Apply flat dash velocity with reduced vertical strength if upward
+            float actualDashForce = (dashDirection.y > 0.1f) ? dashForce * 0.75f : dashForce;
+            rb.linearVelocity = dashDirection * actualDashForce;
+
+            dashTimer += Time.fixedDeltaTime;
+
+            if (Time.time >= lastGhostTime + ghostSpawnInterval)
+            {
+                SpawnDashGhost();
+                lastGhostTime = Time.time;
+            }
+
+            if (dashTimer >= dashDuration)
+            {
+                EndDash();
+            }
+            return;
+        }
+
+        if (isInputLocked)
+        {
+            dashInputLockTimer += Time.fixedDeltaTime;
+            if (dashInputLockTimer >= dashInputLockDuration)
+                isInputLocked = false;
+        }
+
         CheckLedge();
         ApplyHorizontalMovement();
         ApplyFriction();
+        ApplyBetterJumpGravity();
         anim.SetBool("isRunning", Mathf.Abs(moveInput) > 0.01f && isGrounded);
+    }
+
+    void ApplyBetterJumpGravity()
+    {
+        if (rb.linearVelocity.y < -0.1f)
+        {
+            rb.gravityScale = fallGravityMultiplier;
+        }
+        else if (rb.linearVelocity.y > 0.1f && !Input.GetKey(KeyCode.W))
+        {
+            rb.gravityScale = lowJumpGravityMultiplier;
+        }
+        else
+        {
+            rb.gravityScale = 1f;
+        }
     }
 
     void CheckLedge()
     {
         if (boxCollider == null) return;
 
-        // Check if player is near a ledge
         float rayLength = ledgeHangThreshold;
-        Vector2 rayOrigin = (Vector2)transform.position + new Vector2(boxCollider.offset.x, boxCollider.offset.y - boxCollider.size.y/2);
+        Vector2 rayOrigin = (Vector2)transform.position + new Vector2(boxCollider.offset.x, boxCollider.offset.y - boxCollider.size.y / 2);
         RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.down, rayLength, LayerMask.GetMask("Ground", "OneWayPlatform"));
 
         isOnLedge = !hit && isGrounded;
 
-        // Adjust collider when crouching
         if (isCrouching)
         {
             boxCollider.size = new Vector2(boxCollider.size.x, originalColliderSizeY * 0.5f);
@@ -123,8 +193,6 @@ public class PlayerMovement : MonoBehaviour
     void ApplyHorizontalMovement()
     {
         if (knock.IsKnockedBack) return;
-
-        // Prevent movement while crouching on ledge
         if (isCrouching && isOnLedge)
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
@@ -168,6 +236,79 @@ public class PlayerMovement : MonoBehaviour
         isJumping = false;
     }
 
+    void TryDash()
+    {
+        if (!canDash || knock.IsKnockedBack) return;
+
+        dashDirection = new Vector2(moveInput, Input.GetKey(KeyCode.W) ? 1 : (Input.GetKey(KeyCode.S) ? -1 : 0)).normalized;
+
+        if (dashDirection == Vector2.zero)
+            dashDirection = spriteRenderer.flipX ? Vector2.left : Vector2.right;
+
+        // Handle pure upward dash
+        bool isPureUpDash = dashDirection == Vector2.up;
+
+        // Clear upward momentum when dashing up to prevent floaty launches
+        if (isPureUpDash)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
+        }
+
+        // Apply dash velocity
+        rb.linearVelocity = dashDirection * dashForce;
+
+        // Screen shake
+        if (dashImpulseSource != null)
+            dashImpulseSource.GenerateImpulse();
+
+        isDashing = true;
+        dashTimer = 0f;
+        canDash = false;
+        rb.gravityScale = 0f;
+        isInputLocked = true;
+        dashInputLockTimer = 0f;
+        lastGhostTime = Time.time;
+
+        SpawnDashGhost();
+        Invoke(nameof(ResetDash), dashCooldown);
+    }
+
+
+    void EndDash()
+    {
+        isDashing = false;
+        rb.gravityScale = originalGravity; // or 1f, if you don't use custom gravity
+
+        // Optional: clamp leftover upward velocity if you still feel it's floaty
+        if (rb.linearVelocity.y > 0f)
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Min(rb.linearVelocity.y, 2f));
+    }
+
+
+
+
+    void ResetDash()
+    {
+        if (isGrounded) canDash = true;
+    }
+
+    void SpawnDashGhost()
+    {
+        if (dashGhostPrefab == null || spriteRenderer == null) return;
+
+        GameObject ghost = Instantiate(dashGhostPrefab, transform.position, Quaternion.identity);
+        SpriteRenderer ghostRenderer = ghost.GetComponent<SpriteRenderer>();
+
+        if (ghostRenderer != null)
+        {
+            ghostRenderer.sprite = spriteRenderer.sprite;
+            ghostRenderer.flipX = spriteRenderer.flipX;
+            ghostRenderer.color = new Color(1f, 1f, 1f, 0.6f);
+        }
+
+        Destroy(ghost, ghostLifetime);
+    }
+
     void OnCollisionEnter2D(Collision2D c)
     {
         if (c.gameObject.CompareTag("Ground") || c.gameObject.CompareTag("OneWayPlatform"))
@@ -176,6 +317,7 @@ public class PlayerMovement : MonoBehaviour
             isJumping = false;
             lastGroundedTime = Time.time;
             anim.SetBool("isGrounded", true);
+            canDash = true;
         }
     }
 
@@ -196,13 +338,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    // Visualize ledge detection in editor
     void OnDrawGizmos()
     {
         if (boxCollider != null)
         {
             Gizmos.color = Color.red;
-            Vector2 rayOrigin = (Vector2)transform.position + new Vector2(boxCollider.offset.x, boxCollider.offset.y - boxCollider.size.y/2);
+            Vector2 rayOrigin = (Vector2)transform.position + new Vector2(boxCollider.offset.x, boxCollider.offset.y - boxCollider.size.y / 2);
             Gizmos.DrawLine(rayOrigin, rayOrigin + Vector2.down * ledgeHangThreshold);
         }
     }
