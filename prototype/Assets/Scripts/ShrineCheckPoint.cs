@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering.Universal; // Needed for Light2D
 
 public class Checkpoint : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class Checkpoint : MonoBehaviour
     [Header("Visuals")]
     public SpriteRenderer unlitSprite;
     public SpriteRenderer litSprite;
+    public Light2D spotlight; // <- Add reference to spotlight
 
     private void Start()
     {
@@ -22,7 +24,7 @@ public class Checkpoint : MonoBehaviour
             // Update checkpoint data
             CheckpointManager.Instance.SetCheckpoint(transform.position);
 
-            // Update visuals
+            // Update visuals and activate spotlight
             CheckpointManager.Instance.SetActiveCheckpoint(this);
         }
     }
@@ -31,5 +33,6 @@ public class Checkpoint : MonoBehaviour
     {
         if (litSprite != null) litSprite.enabled = isLit;
         if (unlitSprite != null) unlitSprite.enabled = !isLit;
+        if (spotlight != null) spotlight.enabled = isLit; // <- Activate spotlight if lit
     }
 }

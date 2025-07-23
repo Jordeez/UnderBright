@@ -126,6 +126,7 @@ public class PlayerMovement : MonoBehaviour
                 Jump();
         }
 
+
         if (Input.GetKeyUp(KeyCode.W))
             OnJumpUp();
 
@@ -138,8 +139,10 @@ public class PlayerMovement : MonoBehaviour
         // Update fall animation
         anim.SetBool("isFalling", rb.linearVelocity.y < -0.1f && !isGrounded && !isDashing);
 
-        Vector2 wallCheckDir = spriteRenderer.flipX ? Vector2.left : Vector2.right;
-        isTouchingWall = Physics2D.Raycast(transform.position, wallCheckDir, 0.6f, LayerMask.GetMask("Ground", "OneWayPlatform"));
+        Vector2 wallRayOrigin = (Vector2)transform.position + Vector2.up * 0.5f;
+        Vector2 wallRayDirection = new Vector2(moveInput, 0f);
+        isTouchingWall = Physics2D.Raycast(wallRayOrigin, wallRayDirection.normalized, 0.6f, LayerMask.GetMask("Ground", "OneWayPlatform"));
+
 
     }
 
@@ -175,8 +178,12 @@ public class PlayerMovement : MonoBehaviour
         ApplyHorizontalMovement();
         ApplyFriction();
         ApplyBetterJumpGravity();
+
         anim.SetBool("isRunning", Mathf.Abs(moveInput) > 0.01f && isGrounded);
     }
+
+
+
 
     void ApplyBetterJumpGravity()
     {
@@ -356,6 +363,12 @@ public class PlayerMovement : MonoBehaviour
 
     void OnDrawGizmos()
     {
+        // Cache safely in editor mode
+        if (boxCollider == null)
+            boxCollider = GetComponent<BoxCollider2D>();
+        if (spriteRenderer == null)
+            spriteRenderer = GetComponent<SpriteRenderer>();
+
         if (boxCollider != null)
         {
             Gizmos.color = Color.red;
@@ -363,9 +376,6 @@ public class PlayerMovement : MonoBehaviour
             Gizmos.DrawLine(rayOrigin, rayOrigin + Vector2.down * ledgeHangThreshold);
         }
 
-        Gizmos.color = Color.cyan;
-        Vector2 wallCheckDir = spriteRenderer != null && spriteRenderer.flipX ? Vector2.left : Vector2.right;
-        Gizmos.DrawLine(transform.position, transform.position + (Vector3)wallCheckDir * 0.6f);
-
     }
+
 }
