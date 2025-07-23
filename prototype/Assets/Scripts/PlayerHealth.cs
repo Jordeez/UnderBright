@@ -1,22 +1,36 @@
 using UnityEngine;
-using UnityEngine.InputSystem;   // PlayerInput
-using Cinemachine;              // CinemachineImpulseSource
+using UnityEngine.InputSystem;
+using Cinemachine;
 
 [RequireComponent(typeof(PlayerStats))]
 public class PlayerHealth : MonoBehaviour
 {
     private PlayerStats stats;
     private Animator anim;
-    private CinemachineImpulseSource impulse;   // ← declare the field
+    private CinemachineImpulseSource impulse;
 
     public HealthBar healthBar;
+
+    private Vector2 originalColliderOffset;
+    private Collider2D col;
+    private PlayerMovement move;
+    private PlayerInput input;
 
     private void Awake()
     {
         stats = GetComponent<PlayerStats>();
         anim = GetComponent<Animator>();
-        impulse = GetComponent<CinemachineImpulseSource>(); // same GameObject
-        healthBar.SetMaxHealth(stats.playerHealth);
+        impulse = GetComponent<CinemachineImpulseSource>();
+        col = GetComponent<Collider2D>();
+        move = GetComponent<PlayerMovement>();
+        input = GetComponent<PlayerInput>();
+
+        if (col != null)
+            originalColliderOffset = col.offset;
+
+        healthBar.SetMaxHealth(stats.maxHealth);
+        stats.playerHealth = stats.maxHealth;
+        healthBar.SetHealth(stats.playerHealth);
     }
 
     public void TakeDamage(int amount)
@@ -26,8 +40,7 @@ public class PlayerHealth : MonoBehaviour
 
         healthBar.SetHealth(stats.playerHealth);
 
-        // Screen shake
-        impulse?.GenerateImpulse();   // pass a float to scale by damage if you like
+        impulse?.GenerateImpulse();
 
         if (stats.playerHealth == 0)
             Die();
@@ -35,20 +48,45 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
-        // Disable controls
-        if (TryGetComponent<PlayerMovement>(out var move)) move.enabled = false;
-        if (TryGetComponent<PlayerInput>(out var input)) input.enabled = false;
+        if (move != null) move.enabled = false;
+        if (input != null) input.enabled = false;
 
-        // Nudge collider so corpse lines up with ground
-        if (TryGetComponent<Collider2D>(out var col))
+        if (col != null)
         {
             Vector2 off = col.offset;
-            off.y = 0.12f;   // flip sign if it's still floating
+            off.y = 0.12f;
             col.offset = off;
         }
 
-        // Play death animation
         anim.SetTrigger("death");
         Debug.Log($"{gameObject.name} died");
+
+        // Delay respawn to allow death animation to play
+        Invoke(nameof(Respawn), 1.5f); // or use animation event if preferred
+    }
+
+    private void Respawn()
+    {
+        // Reset position to checkpoint
+        CheckpointManager.Instance.RespawnPlayer();
+
+        // Restore control
+        if (move != null) move.enabled = true;
+        if (input != null) input.enabled = true;
+
+        // Restore original collider offset
+        if (col != null)
+            col.offset = originalColliderOffset;
+
+        // Reset animation state if needed
+        anim.ResetTrigger("death");
+        anim.SetBool("isDead", false);
+        anim.Play("Idle"); // or your default state
+    }
+
+    public void RestoreFullHealth()
+    {
+        stats.playerHealth = stats.maxHealth;
+        healthBar.SetHealth(stats.playerHealth);
     }
 }

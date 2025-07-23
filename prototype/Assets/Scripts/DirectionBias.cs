@@ -33,7 +33,7 @@ public class CameraFaceOffset : MonoBehaviour
     {
         if (playerSprite == null || transposer == null || playerRb == null || playerMovement == null) return;
 
-        float facing = playerSprite.flipX ? -1f : 1f;
+        float facing = playerSprite.flipX ? 1f : -1f;
         float targetXOffset = sideOffsetAmount * facing;
 
         float verticalVelocity = playerRb.linearVelocity.y;

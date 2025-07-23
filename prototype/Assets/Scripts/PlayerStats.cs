@@ -6,7 +6,9 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     [Header("Player Health")]
-    public int playerHealth = 10;
+    public int maxHealth = 10;
+    public int playerHealth;
+
     [Header("Combat Stats")]
     public int attackPower = 5;
     public int playerDefense = 5;

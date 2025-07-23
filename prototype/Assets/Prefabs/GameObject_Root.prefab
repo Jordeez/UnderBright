@@ -40,6 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4466837180424491201}
+  - component: {fileID: 5425237459076065855}
   m_Layer: 10
   m_Name: GameObject_Root
   m_TagString: Untagged
@@ -64,6 +65,19 @@ Transform:
   - {fileID: 713560797217929428}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5425237459076065855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5267287318008965844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4e865738e859114d96faae964e9fd75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefabReference: {fileID: 5267287318008965844}
 --- !u!1 &5792672927214451460
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,9 +249,9 @@ MonoBehaviour:
   attackDamage: 1
   attackSize: {x: 1, y: 1}
   attackKnockback: 5
+  selfKnockback: 3
   hitFreezeDuration: 0.1
   hitEffectPrefab: {fileID: 0}
-  chargeDirection: {x: 0, y: 0}
 --- !u!50 &3630726232707713940
 Rigidbody2D:
   serializedVersion: 5

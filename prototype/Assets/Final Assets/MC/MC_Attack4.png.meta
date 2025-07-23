@@ -1,0 +1,429 @@
+fileFormatVersion: 2
+guid: fe11ce6beec24fe449dad580ab0a9cd4
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4950370075967530625
+    second: MC_Attack4_0
+  - first:
+      213: -1891401298796517844
+    second: MC_Attack4_1
+  - first:
+      213: -903834409433629133
+    second: MC_Attack4_2
+  - first:
+      213: -5393307201145192154
+    second: MC_Attack4_3
+  - first:
+      213: -8437989800406972865
+    second: MC_Attack4_4
+  - first:
+      213: -4090490991759309904
+    second: MC_Attack4_5
+  - first:
+      213: 6092353833575080168
+    second: MC_Attack4_6
+  - first:
+      213: -3508257874610557234
+    second: MC_Attack4_7
+  - first:
+      213: 2076763201358140483
+    second: MC_Attack4_8
+  - first:
+      213: -2202718561942609647
+    second: MC_Attack4_9
+  - first:
+      213: 6662426098872830059
+    second: MC_Attack4_10
+  - first:
+      213: 366163131800858181
+    second: MC_Attack4_11
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: MC_Attack4_0
+      rect:
+        serializedVersion: 2
+        x: 515
+        y: 2601
+        width: 1304
+        height: 759
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 186a4cc1b5f33b440800000000000000
+      internalID: 4950370075967530625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Attack4_1
+      rect:
+        serializedVersion: 2
+        x: 2515
+        y: 2602
+        width: 1299
+        height: 780
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2665813a8460c5e0800000000000000
+      internalID: -1891401298796517844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Attack4_2
+      rect:
+        serializedVersion: 2
+        x: 4463
+        y: 2600
+        width: 1323
+        height: 843
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33efee1b46fe473f0800000000000000
+      internalID: -903834409433629133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Attack4_3
+      rect:
+        serializedVersion: 2
+        x: 6418
+        y: 2600
+        width: 1341
+        height: 856
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6214f2fecaf1725b0800000000000000
+      internalID: -5393307201145192154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Attack4_4
+      rect:
+        serializedVersion: 2
+        x: 8392
+        y: 2601
+        width: 1357
+        height: 852
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f368f50abfc36ea80800000000000000
+      internalID: -8437989800406972865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Attack4_5
+      rect:
+        serializedVersion: 2
+        x: 10392
+        y: 2601
+        width: 1370
+        height: 852
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b340478d18ab37c0800000000000000
+      internalID: -4090490991759309904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Attack4_6
+      rect:
+        serializedVersion: 2
+        x: 12392
+        y: 2601
+        width: 1384
+        height: 847
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e06b3078836c8450800000000000000
+      internalID: 6092353833575080168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Attack4_7
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 601
+        width: 1390
+        height: 842
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eceee53fc0a205fc0800000000000000
+      internalID: -3508257874610557234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Attack4_8
+      rect:
+        serializedVersion: 2
+        x: 2392
+        y: 601
+        width: 1396
+        height: 830
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3441e83e02522dc10800000000000000
+      internalID: 2076763201358140483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Attack4_9
+      rect:
+        serializedVersion: 2
+        x: 4392
+        y: 601
+        width: 1399
+        height: 822
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 111604f632f5e61e0800000000000000
+      internalID: -2202718561942609647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Attack4_10
+      rect:
+        serializedVersion: 2
+        x: 6392
+        y: 601
+        width: 1395
+        height: 809
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b684b95ec31b57c50800000000000000
+      internalID: 6662426098872830059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Attack4_11
+      rect:
+        serializedVersion: 2
+        x: 8392
+        y: 601
+        width: 1385
+        height: 802
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54ea5d8ad6fd41500800000000000000
+      internalID: 366163131800858181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      MC_Attack4_0: 4950370075967530625
+      MC_Attack4_1: -1891401298796517844
+      MC_Attack4_10: 6662426098872830059
+      MC_Attack4_11: 366163131800858181
+      MC_Attack4_2: -903834409433629133
+      MC_Attack4_3: -5393307201145192154
+      MC_Attack4_4: -8437989800406972865
+      MC_Attack4_5: -4090490991759309904
+      MC_Attack4_6: 6092353833575080168
+      MC_Attack4_7: -3508257874610557234
+      MC_Attack4_8: 2076763201358140483
+      MC_Attack4_9: -2202718561942609647
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

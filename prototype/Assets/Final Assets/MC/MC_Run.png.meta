@@ -1,0 +1,949 @@
+fileFormatVersion: 2
+guid: 5bc03ddc637699944a6c595064be6f95
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7606534089099358519
+    second: MC_Run_0
+  - first:
+      213: -1735527042424435131
+    second: MC_Run_1
+  - first:
+      213: 6847729971248687294
+    second: MC_Run_2
+  - first:
+      213: 1579005936584357999
+    second: MC_Run_3
+  - first:
+      213: 4969765417630232413
+    second: MC_Run_4
+  - first:
+      213: 718324653104335129
+    second: MC_Run_5
+  - first:
+      213: 1386006765455137368
+    second: MC_Run_6
+  - first:
+      213: -7446005702773468333
+    second: MC_Run_7
+  - first:
+      213: -5190299739908628998
+    second: MC_Run_8
+  - first:
+      213: -3474893430698434790
+    second: MC_Run_9
+  - first:
+      213: 8652665957985952028
+    second: MC_Run_10
+  - first:
+      213: -8185842339817161211
+    second: MC_Run_11
+  - first:
+      213: 3321376265201160315
+    second: MC_Run_12
+  - first:
+      213: 7875118933053822409
+    second: MC_Run_13
+  - first:
+      213: -7930642412663322095
+    second: MC_Run_14
+  - first:
+      213: 2990231635096555203
+    second: MC_Run_15
+  - first:
+      213: -4876214692940058472
+    second: MC_Run_16
+  - first:
+      213: -8672453880493951639
+    second: MC_Run_17
+  - first:
+      213: 5093629688915053518
+    second: MC_Run_18
+  - first:
+      213: 3127744772522990032
+    second: MC_Run_19
+  - first:
+      213: 249851999649119666
+    second: MC_Run_20
+  - first:
+      213: -1699671398013853037
+    second: MC_Run_21
+  - first:
+      213: 294329933520355837
+    second: MC_Run_22
+  - first:
+      213: -5768096279932466742
+    second: MC_Run_23
+  - first:
+      213: -8321169155440929332
+    second: MC_Run_24
+  - first:
+      213: -5327830684539958523
+    second: MC_Run_25
+  - first:
+      213: -2352831246799427581
+    second: MC_Run_26
+  - first:
+      213: -7763338097019062257
+    second: MC_Run_27
+  - first:
+      213: 4097717448750641035
+    second: MC_Run_28
+  - first:
+      213: 7270097178242456359
+    second: MC_Run_29
+  - first:
+      213: -7090062994896481593
+    second: MC_Run_30
+  - first:
+      213: -5606166381331049599
+    second: MC_Run_31
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: MC_Run_0
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 8602
+        width: 1151
+        height: 738
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 731baa0f376df8960800000000000000
+      internalID: 7606534089099358519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Run_1
+      rect:
+        serializedVersion: 2
+        x: 2654
+        y: 8613
+        width: 1162
+        height: 725
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54e0532a95b2ae7e0800000000000000
+      internalID: -1735527042424435131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Run_2
+      rect:
+        serializedVersion: 2
+        x: 4651
+        y: 8598
+        width: 1178
+        height: 735
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb8e216c026080f50800000000000000
+      internalID: 6847729971248687294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Run_3
+      rect:
+        serializedVersion: 2
+        x: 6647
+        y: 8594
+        width: 1178
+        height: 737
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f68f75c8881c9e510800000000000000
+      internalID: 1579005936584357999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Run_4
+      rect:
+        serializedVersion: 2
+        x: 8641
+        y: 8598
+        width: 1173
+        height: 732
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5feedef05728f440800000000000000
+      internalID: 4969765417630232413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Run_5
+      rect:
+        serializedVersion: 2
+        x: 10636
+        y: 8616
+        width: 1180
+        height: 716
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91980b5577008f900800000000000000
+      internalID: 718324653104335129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Run_6
+      rect:
+        serializedVersion: 2
+        x: 12627
+        y: 8651
+        width: 1191
+        height: 690
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85add3f4fc51c3310800000000000000
+      internalID: 1386006765455137368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Run_7
+      rect:
+        serializedVersion: 2
+        x: 624
+        y: 6645
+        width: 1192
+        height: 704
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35397a293497aa890800000000000000
+      internalID: -7446005702773468333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Run_8
+      rect:
+        serializedVersion: 2
+        x: 2619
+        y: 6631
+        width: 1187
+        height: 724
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afd91fcc2e958f7b0800000000000000
+      internalID: -5190299739908628998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Run_9
+      rect:
+        serializedVersion: 2
+        x: 4618
+        y: 6632
+        width: 1186
+        height: 724
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1f91e6e5d2b6cfc0800000000000000
+      internalID: -3474893430698434790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Run_10
+      rect:
+        serializedVersion: 2
+        x: 6620
+        y: 6616
+        width: 1188
+        height: 736
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c112ed158d1741870800000000000000
+      internalID: 8652665957985952028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Run_11
+      rect:
+        serializedVersion: 2
+        x: 8621
+        y: 6606
+        width: 1190
+        height: 743
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50e78db23cb066e80800000000000000
+      internalID: -8185842339817161211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Run_12
+      rect:
+        serializedVersion: 2
+        x: 10627
+        y: 6603
+        width: 1190
+        height: 741
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b709ab4ad16e71e20800000000000000
+      internalID: 3321376265201160315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Run_13
+      rect:
+        serializedVersion: 2
+        x: 12632
+        y: 6614
+        width: 1195
+        height: 724
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c550a802fa0a4d60800000000000000
+      internalID: 7875118933053822409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Run_14
+      rect:
+        serializedVersion: 2
+        x: 643
+        y: 4615
+        width: 1193
+        height: 725
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11a4e887eb2b0f190800000000000000
+      internalID: -7930642412663322095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Run_15
+      rect:
+        serializedVersion: 2
+        x: 2651
+        y: 4608
+        width: 1172
+        height: 732
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3cec01644df6f7920800000000000000
+      internalID: 2990231635096555203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Run_16
+      rect:
+        serializedVersion: 2
+        x: 4656
+        y: 4602
+        width: 1150
+        height: 738
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89074c27294345cb0800000000000000
+      internalID: -4876214692940058472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Run_17
+      rect:
+        serializedVersion: 2
+        x: 6655
+        y: 4611
+        width: 1157
+        height: 727
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9653332f42145a780800000000000000
+      internalID: -8672453880493951639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Run_18
+      rect:
+        serializedVersion: 2
+        x: 8651
+        y: 4600
+        width: 1175
+        height: 733
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ecb4a21073530b640800000000000000
+      internalID: 5093629688915053518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Run_19
+      rect:
+        serializedVersion: 2
+        x: 10649
+        y: 4594
+        width: 1174
+        height: 737
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d951529c4bf76b20800000000000000
+      internalID: 3127744772522990032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Run_20
+      rect:
+        serializedVersion: 2
+        x: 12642
+        y: 4598
+        width: 1172
+        height: 730
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2bdb185e117a77300800000000000000
+      internalID: 249851999649119666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Run_21
+      rect:
+        serializedVersion: 2
+        x: 638
+        y: 2617
+        width: 1178
+        height: 713
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3922e766edd8968e0800000000000000
+      internalID: -1699671398013853037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Run_22
+      rect:
+        serializedVersion: 2
+        x: 2632
+        y: 2651
+        width: 1186
+        height: 683
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df1ce3ed38ba51400800000000000000
+      internalID: 294329933520355837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Run_23
+      rect:
+        serializedVersion: 2
+        x: 4628
+        y: 2645
+        width: 1188
+        height: 696
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac98f5c7efa93ffa0800000000000000
+      internalID: -5768096279932466742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Run_24
+      rect:
+        serializedVersion: 2
+        x: 6626
+        y: 2631
+        width: 1180
+        height: 715
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc591069db4458c80800000000000000
+      internalID: -8321169155440929332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Run_25
+      rect:
+        serializedVersion: 2
+        x: 8626
+        y: 2632
+        width: 1178
+        height: 713
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50bc190783ebf06b0800000000000000
+      internalID: -5327830684539958523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Run_26
+      rect:
+        serializedVersion: 2
+        x: 10628
+        y: 2616
+        width: 1180
+        height: 724
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 308a4166270195fd0800000000000000
+      internalID: -2352831246799427581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Run_27
+      rect:
+        serializedVersion: 2
+        x: 12631
+        y: 2606
+        width: 1181
+        height: 730
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f08fbe7f125134490800000000000000
+      internalID: -7763338097019062257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Run_28
+      rect:
+        serializedVersion: 2
+        x: 636
+        y: 603
+        width: 1181
+        height: 730
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8fa3ba1f440ed830800000000000000
+      internalID: 4097717448750641035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Run_29
+      rect:
+        serializedVersion: 2
+        x: 2639
+        y: 615
+        width: 1190
+        height: 719
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72b16bf6dd294e460800000000000000
+      internalID: 7270097178242456359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Run_30
+      rect:
+        serializedVersion: 2
+        x: 4649
+        y: 615
+        width: 1187
+        height: 722
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c29d0a55490b9d90800000000000000
+      internalID: -7090062994896481593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_Run_31
+      rect:
+        serializedVersion: 2
+        x: 6652
+        y: 608
+        width: 1170
+        height: 730
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18396010165e232b0800000000000000
+      internalID: -5606166381331049599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      MC_Run_0: 7606534089099358519
+      MC_Run_1: -1735527042424435131
+      MC_Run_10: 8652665957985952028
+      MC_Run_11: -8185842339817161211
+      MC_Run_12: 3321376265201160315
+      MC_Run_13: 7875118933053822409
+      MC_Run_14: -7930642412663322095
+      MC_Run_15: 2990231635096555203
+      MC_Run_16: -4876214692940058472
+      MC_Run_17: -8672453880493951639
+      MC_Run_18: 5093629688915053518
+      MC_Run_19: 3127744772522990032
+      MC_Run_2: 6847729971248687294
+      MC_Run_20: 249851999649119666
+      MC_Run_21: -1699671398013853037
+      MC_Run_22: 294329933520355837
+      MC_Run_23: -5768096279932466742
+      MC_Run_24: -8321169155440929332
+      MC_Run_25: -5327830684539958523
+      MC_Run_26: -2352831246799427581
+      MC_Run_27: -7763338097019062257
+      MC_Run_28: 4097717448750641035
+      MC_Run_29: 7270097178242456359
+      MC_Run_3: 1579005936584357999
+      MC_Run_30: -7090062994896481593
+      MC_Run_31: -5606166381331049599
+      MC_Run_4: 4969765417630232413
+      MC_Run_5: 718324653104335129
+      MC_Run_6: 1386006765455137368
+      MC_Run_7: -7446005702773468333
+      MC_Run_8: -5190299739908628998
+      MC_Run_9: -3474893430698434790
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

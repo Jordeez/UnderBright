@@ -47,6 +47,11 @@ public class EnemyAI : MonoBehaviour
         points.Add(p2.transform);
     }
 
+    private void Start()
+    {
+        EnemyManager.Instance.RegisterEnemy(gameObject, transform.position);
+    }
+
     private void Update()
     {
         MoveToNextPoint();

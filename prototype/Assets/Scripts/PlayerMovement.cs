@@ -1,12 +1,9 @@
 using UnityEngine;
 using Cinemachine;
 
-
-
 public class PlayerMovement : MonoBehaviour
 {
     private float originalGravity;
-
 
     [Header("References")]
     public Rigidbody2D rb;
@@ -29,6 +26,17 @@ public class PlayerMovement : MonoBehaviour
     public float ledgeCoyoteTime = 0.1f;
     public float ledgeHangThreshold = 0.5f;
 
+    [Header("Wall Slide & Jump")]
+    public float wallSlideSpeed = 2f;
+    public float wallJumpForce = 14f;
+    public Vector2 wallJumpDirection = new Vector2(1f, 1.2f);
+    public float wallJumpDuration = 0.2f;
+
+    private bool isTouchingWall = false;
+    private bool isWallSliding = false;
+    private bool isWallJumping = false;
+
+
     [Header("Dash")]
     public float dashForce = 15f;
     public float dashDuration = 0.2f;
@@ -41,12 +49,15 @@ public class PlayerMovement : MonoBehaviour
     private float dashInputLockTimer;
     private bool isInputLocked = false;
 
-
     [Header("Ghost Trail (Sprite)")]
     public GameObject dashGhostPrefab;
     public float ghostSpawnInterval = 0.05f;
     public float ghostLifetime = 0.3f;
     private float lastGhostTime;
+
+    [Header("Ghost Trail Settings")]
+    public Color ghostColor = new Color(1f, 1f, 1f, 0.6f);
+
 
     private float moveInput;
     private bool isGrounded;
@@ -57,20 +68,20 @@ public class PlayerMovement : MonoBehaviour
     private bool isOnLedge;
     private float originalColliderSizeY;
     private float originalColliderOffsetY;
+    private float originalColliderOffsetX; 
+
     private BoxCollider2D boxCollider;
+
+
 
     [SerializeField] private CinemachineImpulseSource dashImpulseSource;
 
-
-    public bool IsDashing()
-    {
-        return isDashing;
-    }
+    public bool IsDashing() => isDashing;
 
     void Awake()
     {
-        originalGravity = rb.gravityScale;
 
+        originalGravity = rb.gravityScale;
         knock = GetComponent<KnockbackHandler>();
         anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -80,19 +91,31 @@ public class PlayerMovement : MonoBehaviour
         {
             originalColliderSizeY = boxCollider.size.y;
             originalColliderOffsetY = boxCollider.offset.y;
+            originalColliderOffsetX = boxCollider.offset.x;
         }
+
     }
 
     void Update()
     {
-        if (isDashing || isInputLocked) return;
+        moveInput = Input.GetAxisRaw("Horizontal");
 
-        moveInput = 0;
         if (Input.GetKey(KeyCode.A)) moveInput = -1;
         if (Input.GetKey(KeyCode.D)) moveInput = 1;
 
+        if (moveInput < 0) spriteRenderer.flipX = false;
+        if (moveInput > 0) spriteRenderer.flipX = true;
+
+        float flipFactor = spriteRenderer.flipX ? -1f : 1f;
+
+        // Flip collider offset
+        if (boxCollider != null)
+        {
+            boxCollider.offset = new Vector2(originalColliderOffsetX * flipFactor, originalColliderOffsetY);
+        }
+
         isCrouching = Input.GetKey(KeyCode.S);
-        anim.SetBool("isCrouching", isCrouching);
+        // anim.SetBool("isCrouching", isCrouching);
 
         if (isCrouching && isOnLedge)
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
@@ -109,17 +132,21 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.K))
             TryDash();
 
-        if (moveInput < 0) spriteRenderer.flipX = true;
-        if (moveInput > 0) spriteRenderer.flipX = false;
 
         if (isGrounded) lastGroundedTime = Time.time;
+
+        // Update fall animation
+        anim.SetBool("isFalling", rb.linearVelocity.y < -0.1f && !isGrounded && !isDashing);
+
+        Vector2 wallCheckDir = spriteRenderer.flipX ? Vector2.left : Vector2.right;
+        isTouchingWall = Physics2D.Raycast(transform.position, wallCheckDir, 0.6f, LayerMask.GetMask("Ground", "OneWayPlatform"));
+
     }
 
     void FixedUpdate()
     {
         if (isDashing)
         {
-            // Apply flat dash velocity with reduced vertical strength if upward
             float actualDashForce = (dashDirection.y > 0.1f) ? dashForce * 0.75f : dashForce;
             rb.linearVelocity = dashDirection * actualDashForce;
 
@@ -132,9 +159,8 @@ public class PlayerMovement : MonoBehaviour
             }
 
             if (dashTimer >= dashDuration)
-            {
                 EndDash();
-            }
+
             return;
         }
 
@@ -243,23 +269,17 @@ public class PlayerMovement : MonoBehaviour
         dashDirection = new Vector2(moveInput, Input.GetKey(KeyCode.W) ? 1 : (Input.GetKey(KeyCode.S) ? -1 : 0)).normalized;
 
         if (dashDirection == Vector2.zero)
-            dashDirection = spriteRenderer.flipX ? Vector2.left : Vector2.right;
+            dashDirection = spriteRenderer.flipX ? Vector2.right : Vector2.left;
 
-        // Handle pure upward dash
-        bool isPureUpDash = dashDirection == Vector2.up;
-
-        // Clear upward momentum when dashing up to prevent floaty launches
-        if (isPureUpDash)
-        {
+        if (dashDirection == Vector2.up)
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
-        }
 
-        // Apply dash velocity
         rb.linearVelocity = dashDirection * dashForce;
 
-        // Screen shake
         if (dashImpulseSource != null)
             dashImpulseSource.GenerateImpulse();
+
+        anim.SetTrigger("Dash");
 
         isDashing = true;
         dashTimer = 0f;
@@ -270,22 +290,18 @@ public class PlayerMovement : MonoBehaviour
         lastGhostTime = Time.time;
 
         SpawnDashGhost();
+
         Invoke(nameof(ResetDash), dashCooldown);
     }
-
 
     void EndDash()
     {
         isDashing = false;
-        rb.gravityScale = originalGravity; // or 1f, if you don't use custom gravity
+        rb.gravityScale = originalGravity;
 
-        // Optional: clamp leftover upward velocity if you still feel it's floaty
         if (rb.linearVelocity.y > 0f)
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Min(rb.linearVelocity.y, 2f));
     }
-
-
-
 
     void ResetDash()
     {
@@ -303,7 +319,7 @@ public class PlayerMovement : MonoBehaviour
         {
             ghostRenderer.sprite = spriteRenderer.sprite;
             ghostRenderer.flipX = spriteRenderer.flipX;
-            ghostRenderer.color = new Color(1f, 1f, 1f, 0.6f);
+            ghostRenderer.color = ghostColor;
         }
 
         Destroy(ghost, ghostLifetime);
@@ -346,5 +362,10 @@ public class PlayerMovement : MonoBehaviour
             Vector2 rayOrigin = (Vector2)transform.position + new Vector2(boxCollider.offset.x, boxCollider.offset.y - boxCollider.size.y / 2);
             Gizmos.DrawLine(rayOrigin, rayOrigin + Vector2.down * ledgeHangThreshold);
         }
+
+        Gizmos.color = Color.cyan;
+        Vector2 wallCheckDir = spriteRenderer != null && spriteRenderer.flipX ? Vector2.left : Vector2.right;
+        Gizmos.DrawLine(transform.position, transform.position + (Vector3)wallCheckDir * 0.6f);
+
     }
 }
