@@ -1,0 +1,377 @@
+fileFormatVersion: 2
+guid: c4e7a4d498f611946930313793e34345
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7675991005509005967
+    second: Tiktik_Hurt_0
+  - first:
+      213: -5889306231142805782
+    second: Tiktik_Hurt_1
+  - first:
+      213: 1656263488156890611
+    second: Tiktik_Hurt_2
+  - first:
+      213: 8726677589340947338
+    second: Tiktik_Hurt_3
+  - first:
+      213: -1789129783618352526
+    second: Tiktik_Hurt_4
+  - first:
+      213: 8646319962048130697
+    second: Tiktik_Hurt_5
+  - first:
+      213: -7023584255282489522
+    second: Tiktik_Hurt_6
+  - first:
+      213: 6541361471569911599
+    second: Tiktik_Hurt_7
+  - first:
+      213: 8739253626851556110
+    second: Tiktik_Hurt_8
+  - first:
+      213: -8048562020879353242
+    second: Tiktik_Hurt_9
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Tiktik_Hurt_0
+      rect:
+        serializedVersion: 2
+        x: 737
+        y: 2570
+        width: 623
+        height: 830
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17dca8189d6697590800000000000000
+      internalID: -7675991005509005967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Hurt_1
+      rect:
+        serializedVersion: 2
+        x: 2737
+        y: 2570
+        width: 620
+        height: 831
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aee0d378f2bf44ea0800000000000000
+      internalID: -5889306231142805782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Hurt_2
+      rect:
+        serializedVersion: 2
+        x: 4734
+        y: 2570
+        width: 607
+        height: 836
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f57a020eda3cf610800000000000000
+      internalID: 1656263488156890611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Hurt_3
+      rect:
+        serializedVersion: 2
+        x: 6732
+        y: 2571
+        width: 594
+        height: 840
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a83870618036b1970800000000000000
+      internalID: 8726677589340947338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Hurt_4
+      rect:
+        serializedVersion: 2
+        x: 8722
+        y: 2573
+        width: 573
+        height: 842
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27a4b56e0fbbb27e0800000000000000
+      internalID: -1789129783618352526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Hurt_5
+      rect:
+        serializedVersion: 2
+        x: 10717
+        y: 2573
+        width: 555
+        height: 842
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98e6f300236edf770800000000000000
+      internalID: 8646319962048130697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Hurt_6
+      rect:
+        serializedVersion: 2
+        x: 12712
+        y: 2575
+        width: 523
+        height: 838
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e475cd51557378e90800000000000000
+      internalID: -7023584255282489522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Hurt_7
+      rect:
+        serializedVersion: 2
+        x: 711
+        y: 576
+        width: 500
+        height: 835
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2fd95cc99597ca50800000000000000
+      internalID: 6541361471569911599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Hurt_8
+      rect:
+        serializedVersion: 2
+        x: 2711
+        y: 580
+        width: 527
+        height: 827
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0bf78efed0184970800000000000000
+      internalID: 8739253626851556110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Hurt_9
+      rect:
+        serializedVersion: 2
+        x: 4711
+        y: 581
+        width: 555
+        height: 824
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66a39c03c73cd4090800000000000000
+      internalID: -8048562020879353242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Tiktik_Hurt_0: -7675991005509005967
+      Tiktik_Hurt_1: -5889306231142805782
+      Tiktik_Hurt_2: 1656263488156890611
+      Tiktik_Hurt_3: 8726677589340947338
+      Tiktik_Hurt_4: -1789129783618352526
+      Tiktik_Hurt_5: 8646319962048130697
+      Tiktik_Hurt_6: -7023584255282489522
+      Tiktik_Hurt_7: 6541361471569911599
+      Tiktik_Hurt_8: 8739253626851556110
+      Tiktik_Hurt_9: -8048562020879353242
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

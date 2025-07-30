@@ -1,0 +1,611 @@
+fileFormatVersion: 2
+guid: 64c41f00b3ae31f4d865cd95af8c59ee
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -457157608010535510
+    second: Tiktik_Death_0
+  - first:
+      213: -800435154669394448
+    second: Tiktik_Death_1
+  - first:
+      213: 6468204028846093042
+    second: Tiktik_Death_2
+  - first:
+      213: 2331962299313116831
+    second: Tiktik_Death_3
+  - first:
+      213: 6859324132927236906
+    second: Tiktik_Death_4
+  - first:
+      213: -7938567573820928151
+    second: Tiktik_Death_5
+  - first:
+      213: 1872768053163101162
+    second: Tiktik_Death_6
+  - first:
+      213: -1723212317668172701
+    second: Tiktik_Death_7
+  - first:
+      213: -1995449474760303875
+    second: Tiktik_Death_8
+  - first:
+      213: 6207955321317789933
+    second: Tiktik_Death_9
+  - first:
+      213: -3816123281998879622
+    second: Tiktik_Death_10
+  - first:
+      213: -2203280306649221755
+    second: Tiktik_Death_11
+  - first:
+      213: -8639445825817958595
+    second: Tiktik_Death_12
+  - first:
+      213: 6105457928243626262
+    second: Tiktik_Death_13
+  - first:
+      213: 4187422171374036542
+    second: Tiktik_Death_14
+  - first:
+      213: -2120750188572542480
+    second: Tiktik_Death_15
+  - first:
+      213: -6841740792504991287
+    second: Tiktik_Death_16
+  - first:
+      213: 4212938578991794380
+    second: Tiktik_Death_17
+  - first:
+      213: 1030775777053369074
+    second: Tiktik_Death_18
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Tiktik_Death_0
+      rect:
+        serializedVersion: 2
+        x: 706
+        y: 4580
+        width: 577
+        height: 822
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aad2a20e399d7a9f0800000000000000
+      internalID: -457157608010535510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Death_1
+      rect:
+        serializedVersion: 2
+        x: 2708
+        y: 4573
+        width: 555
+        height: 823
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f5223cb77844e4f0800000000000000
+      internalID: -800435154669394448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Death_2
+      rect:
+        serializedVersion: 2
+        x: 4710
+        y: 4548
+        width: 504
+        height: 831
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f23f125b4da3c950800000000000000
+      internalID: 6468204028846093042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Death_3
+      rect:
+        serializedVersion: 2
+        x: 6712
+        y: 4536
+        width: 481
+        height: 828
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9659202b5bcc5020800000000000000
+      internalID: 2331962299313116831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Death_4
+      rect:
+        serializedVersion: 2
+        x: 8717
+        y: 4534
+        width: 497
+        height: 803
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2b6466e4f6313f50800000000000000
+      internalID: 6859324132927236906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Death_5
+      rect:
+        serializedVersion: 2
+        x: 10721
+        y: 4546
+        width: 505
+        height: 775
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96f08f81ada84d190800000000000000
+      internalID: -7938567573820928151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Death_6
+      rect:
+        serializedVersion: 2
+        x: 12727
+        y: 4555
+        width: 510
+        height: 743
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aeb8c7b3f986df910800000000000000
+      internalID: 1872768053163101162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Death_7
+      rect:
+        serializedVersion: 2
+        x: 731
+        y: 2547
+        width: 507
+        height: 740
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36c9fcce68be518e0800000000000000
+      internalID: -1723212317668172701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Death_8
+      rect:
+        serializedVersion: 2
+        x: 2735
+        y: 2546
+        width: 494
+        height: 739
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfa1ca9664dbe44e0800000000000000
+      internalID: -1995449474760303875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Death_9
+      rect:
+        serializedVersion: 2
+        x: 4739
+        y: 2546
+        width: 480
+        height: 737
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de094ac3976172650800000000000000
+      internalID: 6207955321317789933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Death_10
+      rect:
+        serializedVersion: 2
+        x: 6745
+        y: 2546
+        width: 461
+        height: 736
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a74eb5df7186a0bc0800000000000000
+      internalID: -3816123281998879622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Death_11
+      rect:
+        serializedVersion: 2
+        x: 8750
+        y: 2546
+        width: 451
+        height: 736
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5853f8d0c306c61e0800000000000000
+      internalID: -2203280306649221755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Death_12
+      rect:
+        serializedVersion: 2
+        x: 10740
+        y: 2546
+        width: 461
+        height: 735
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d37a3ef8bc58a1880800000000000000
+      internalID: -8639445825817958595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Death_13
+      rect:
+        serializedVersion: 2
+        x: 12728
+        y: 2546
+        width: 473
+        height: 733
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 611cd0c33a1fab450800000000000000
+      internalID: 6105457928243626262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Death_14
+      rect:
+        serializedVersion: 2
+        x: 709
+        y: 546
+        width: 492
+        height: 730
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3628596746bc1a30800000000000000
+      internalID: 4187422171374036542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Death_15
+      rect:
+        serializedVersion: 2
+        x: 2699
+        y: 546
+        width: 502
+        height: 729
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f97ac090f49192e0800000000000000
+      internalID: -2120750188572542480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Death_16
+      rect:
+        serializedVersion: 2
+        x: 4696
+        y: 546
+        width: 505
+        height: 728
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c1c0719ff04d01a0800000000000000
+      internalID: -6841740792504991287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Death_17
+      rect:
+        serializedVersion: 2
+        x: 6696
+        y: 546
+        width: 505
+        height: 728
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc84855015d577a30800000000000000
+      internalID: 4212938578991794380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Death_18
+      rect:
+        serializedVersion: 2
+        x: 8696
+        y: 546
+        width: 505
+        height: 728
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f2e752ab1d0e4e00800000000000000
+      internalID: 1030775777053369074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Tiktik_Death_0: -457157608010535510
+      Tiktik_Death_1: -800435154669394448
+      Tiktik_Death_10: -3816123281998879622
+      Tiktik_Death_11: -2203280306649221755
+      Tiktik_Death_12: -8639445825817958595
+      Tiktik_Death_13: 6105457928243626262
+      Tiktik_Death_14: 4187422171374036542
+      Tiktik_Death_15: -2120750188572542480
+      Tiktik_Death_16: -6841740792504991287
+      Tiktik_Death_17: 4212938578991794380
+      Tiktik_Death_18: 1030775777053369074
+      Tiktik_Death_2: 6468204028846093042
+      Tiktik_Death_3: 2331962299313116831
+      Tiktik_Death_4: 6859324132927236906
+      Tiktik_Death_5: -7938567573820928151
+      Tiktik_Death_6: 1872768053163101162
+      Tiktik_Death_7: -1723212317668172701
+      Tiktik_Death_8: -1995449474760303875
+      Tiktik_Death_9: 6207955321317789933
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

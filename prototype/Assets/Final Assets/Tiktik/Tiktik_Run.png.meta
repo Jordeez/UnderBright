@@ -1,0 +1,533 @@
+fileFormatVersion: 2
+guid: df918653e0ff37549a8de9ee04c4e253
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3722729420850810250
+    second: Tiktik_Run_0
+  - first:
+      213: 6091424254717454909
+    second: Tiktik_Run_1
+  - first:
+      213: -8889030613000385670
+    second: Tiktik_Run_2
+  - first:
+      213: -431268012269411903
+    second: Tiktik_Run_3
+  - first:
+      213: 7632532503734686238
+    second: Tiktik_Run_4
+  - first:
+      213: -8256942373320167985
+    second: Tiktik_Run_5
+  - first:
+      213: -9193165688652139979
+    second: Tiktik_Run_6
+  - first:
+      213: -6362646223763889478
+    second: Tiktik_Run_7
+  - first:
+      213: -1679536703390571021
+    second: Tiktik_Run_8
+  - first:
+      213: 3602651608922791969
+    second: Tiktik_Run_9
+  - first:
+      213: -1862556008655791890
+    second: Tiktik_Run_10
+  - first:
+      213: -8925313153699175992
+    second: Tiktik_Run_11
+  - first:
+      213: -7452177957011949778
+    second: Tiktik_Run_12
+  - first:
+      213: -2694657248453770213
+    second: Tiktik_Run_13
+  - first:
+      213: -3767468738265730476
+    second: Tiktik_Run_14
+  - first:
+      213: -1794059362742124071
+    second: Tiktik_Run_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Tiktik_Run_0
+      rect:
+        serializedVersion: 2
+        x: 694
+        y: 4594
+        width: 549
+        height: 806
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8d45b43faac9a330800000000000000
+      internalID: 3722729420850810250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Run_1
+      rect:
+        serializedVersion: 2
+        x: 2697
+        y: 4593
+        width: 546
+        height: 807
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3ae1aef516198450800000000000000
+      internalID: 6091424254717454909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Run_2
+      rect:
+        serializedVersion: 2
+        x: 4700
+        y: 4586
+        width: 543
+        height: 809
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7b0a8ae0c1d3a480800000000000000
+      internalID: -8889030613000385670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Run_3
+      rect:
+        serializedVersion: 2
+        x: 6699
+        y: 4580
+        width: 544
+        height: 811
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c161bd1704d30af0800000000000000
+      internalID: -431268012269411903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Run_4
+      rect:
+        serializedVersion: 2
+        x: 8691
+        y: 4591
+        width: 552
+        height: 796
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e129abd8fd33ce960800000000000000
+      internalID: 7632532503734686238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Run_5
+      rect:
+        serializedVersion: 2
+        x: 10684
+        y: 4614
+        width: 560
+        height: 773
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fcd616b98a2796d80800000000000000
+      internalID: -8256942373320167985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Run_6
+      rect:
+        serializedVersion: 2
+        x: 12677
+        y: 4607
+        width: 569
+        height: 783
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 532749e73805b6080800000000000000
+      internalID: -9193165688652139979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Run_7
+      rect:
+        serializedVersion: 2
+        x: 683
+        y: 2599
+        width: 562
+        height: 796
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab2a21168f653b7a0800000000000000
+      internalID: -6362646223763889478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Run_8
+      rect:
+        serializedVersion: 2
+        x: 2694
+        y: 2599
+        width: 549
+        height: 801
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f5ac2f444611b8e0800000000000000
+      internalID: -1679536703390571021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Run_9
+      rect:
+        serializedVersion: 2
+        x: 4697
+        y: 2601
+        width: 546
+        height: 799
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1202557fc803ff130800000000000000
+      internalID: 3602651608922791969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Run_10
+      rect:
+        serializedVersion: 2
+        x: 6700
+        y: 2596
+        width: 543
+        height: 799
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee85dc9ad2fd626e0800000000000000
+      internalID: -1862556008655791890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Run_11
+      rect:
+        serializedVersion: 2
+        x: 8699
+        y: 2586
+        width: 544
+        height: 805
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c1a3ac99fae22480800000000000000
+      internalID: -8925313153699175992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Run_12
+      rect:
+        serializedVersion: 2
+        x: 10691
+        y: 2591
+        width: 552
+        height: 796
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e277e45a1ab849890800000000000000
+      internalID: -7452177957011949778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Run_13
+      rect:
+        serializedVersion: 2
+        x: 12684
+        y: 2599
+        width: 560
+        height: 788
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b144b7a6287aa9ad0800000000000000
+      internalID: -2694657248453770213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Run_14
+      rect:
+        serializedVersion: 2
+        x: 678
+        y: 609
+        width: 568
+        height: 781
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4523849b42347bbc0800000000000000
+      internalID: -3767468738265730476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Run_15
+      rect:
+        serializedVersion: 2
+        x: 2683
+        y: 597
+        width: 562
+        height: 798
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d1cac1d3883a17e0800000000000000
+      internalID: -1794059362742124071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Tiktik_Run_0: 3722729420850810250
+      Tiktik_Run_1: 6091424254717454909
+      Tiktik_Run_10: -1862556008655791890
+      Tiktik_Run_11: -8925313153699175992
+      Tiktik_Run_12: -7452177957011949778
+      Tiktik_Run_13: -2694657248453770213
+      Tiktik_Run_14: -3767468738265730476
+      Tiktik_Run_15: -1794059362742124071
+      Tiktik_Run_2: -8889030613000385670
+      Tiktik_Run_3: -431268012269411903
+      Tiktik_Run_4: 7632532503734686238
+      Tiktik_Run_5: -8256942373320167985
+      Tiktik_Run_6: -9193165688652139979
+      Tiktik_Run_7: -6362646223763889478
+      Tiktik_Run_8: -1679536703390571021
+      Tiktik_Run_9: 3602651608922791969
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

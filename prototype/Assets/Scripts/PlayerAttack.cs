@@ -1,25 +1,24 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttack : MonoBehaviour
+public class PlayerAttackProjectile : MonoBehaviour
 {
     [Header("Attack Settings")]
-    public Transform attackPoint;
-    public float attackRange = 0.5f;
-    public LayerMask enemyLayers;
-    public int damage = 10;
-    public float knockbackForce = 5f;
-    public float hitPauseDuration = 0.1f;
-    public Vector2 boxSize = new Vector2(1f, 1f);
-    public bool useBoxHitbox = false;
+    public GameObject projectilePrefab;
+    public Transform firePoint;
+    public float projectileSpeed = 10f;
+    public float projectileLifetime = 2f;
 
     private Animator anim;
     private bool isAttacking = false;
+    private SpriteRenderer spriteRenderer;
+    private Collider2D playerCollider;
 
     void Awake()
     {
         anim = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        playerCollider = GetComponent<Collider2D>();
     }
 
     void Update()
@@ -36,69 +35,37 @@ public class PlayerAttack : MonoBehaviour
         anim.SetTrigger("attack");
     }
 
-    // Call this via Animation Event at the hit frame
-    public void DealDamage()
+
+    public void ShootProjectile()
     {
-        Collider2D[] hits;
+        float direction = spriteRenderer.flipX ? 1f : -1f; 
 
-        if (useBoxHitbox)
+        GameObject proj = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
+
+
+        Collider2D projCol = proj.GetComponent<Collider2D>();
+        if (projCol != null && playerCollider != null)
         {
-            hits = Physics2D.OverlapBoxAll(attackPoint.position, boxSize, 0f, enemyLayers);
-        }
-        else
-        {
-            hits = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
-        }
-
-        bool hitSomething = false;
-
-        foreach (Collider2D hit in hits)
-        {
-            // Apply damage
-            EnemyStats stats = hit.GetComponent<EnemyStats>();
-            if (stats != null)
-            {
-                stats.TakeDamage(damage);
-                hitSomething = true;
-            }
-
-            // Optional knockback
-            KnockbackHandler knockback = hit.GetComponent<KnockbackHandler>();
-            if (knockback != null)
-            {
-                Vector2 dir = (hit.transform.position - transform.position).normalized;
-                knockback.ReceiveHit(dir, knockbackForce);
-                hitSomething = true;
-            }
+            Physics2D.IgnoreCollision(projCol, playerCollider);
         }
 
-        if (hitSomething && hitPauseDuration > 0f)
+
+        Rigidbody2D rb = proj.GetComponent<Rigidbody2D>();
+        if (rb != null)
         {
-            StartCoroutine(HitPause());
+            rb.linearVelocity = new Vector2(direction * projectileSpeed, 0f);
         }
+
+
+        SpriteRenderer projSprite = proj.GetComponent<SpriteRenderer>();
+        if (projSprite != null)
+            projSprite.flipX = spriteRenderer.flipX;
+
+        Destroy(proj, projectileLifetime);
     }
 
-
-    public void EndAttack() // Call this at end of attack animation
+    public void EndAttack()
     {
         isAttacking = false;
-    }
-
-    IEnumerator HitPause()
-    {
-        Time.timeScale = 0.1f;
-        yield return new WaitForSecondsRealtime(hitPauseDuration);
-        Time.timeScale = 1f;
-    }
-
-    void OnDrawGizmosSelected()
-    {
-        if (!attackPoint) return;
-        Gizmos.color = Color.red;
-
-        if (useBoxHitbox)
-            Gizmos.DrawWireCube(attackPoint.position, boxSize);
-        else
-            Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 }

@@ -26,6 +26,10 @@ public class PlayerMovement : MonoBehaviour
     public float ledgeCoyoteTime = 0.1f;
     public float ledgeHangThreshold = 0.5f;
 
+    [Header("Jump Limit")]
+    public float maxJumpHeight = 3f; 
+    private float jumpStartY;
+
     [Header("Wall Slide & Jump")]
     public float wallSlideSpeed = 2f;
     public float wallJumpForce = 14f;
@@ -72,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
 
     private BoxCollider2D boxCollider;
 
-
+    public Transform firePoint;
 
     [SerializeField] private CinemachineImpulseSource dashImpulseSource;
 
@@ -107,6 +111,19 @@ public class PlayerMovement : MonoBehaviour
         if (moveInput > 0) spriteRenderer.flipX = true;
 
         float flipFactor = spriteRenderer.flipX ? -1f : 1f;
+
+        if (moveInput < 0)
+        {
+            spriteRenderer.flipX = false;
+            if (firePoint != null)
+                firePoint.localPosition = new Vector3(-Mathf.Abs(firePoint.localPosition.x), firePoint.localPosition.y, firePoint.localPosition.z);
+        }
+        if (moveInput > 0)
+        {
+            spriteRenderer.flipX = true;
+            if (firePoint != null)
+                firePoint.localPosition = new Vector3(Mathf.Abs(firePoint.localPosition.x), firePoint.localPosition.y, firePoint.localPosition.z);
+        }
 
         // Flip collider offset
         if (boxCollider != null)
@@ -187,10 +204,12 @@ public class PlayerMovement : MonoBehaviour
 
     void ApplyBetterJumpGravity()
     {
+
         if (rb.linearVelocity.y < -0.1f)
         {
             rb.gravityScale = fallGravityMultiplier;
         }
+
         else if (rb.linearVelocity.y > 0.1f && !Input.GetKey(KeyCode.W))
         {
             rb.gravityScale = lowJumpGravityMultiplier;
@@ -199,7 +218,15 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.gravityScale = 1f;
         }
+
+
+        if (isJumping && transform.position.y >= jumpStartY + maxJumpHeight)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Min(rb.linearVelocity.y, 0f));
+            isJumping = false; 
+        }
     }
+
 
     void CheckLedge()
     {
@@ -254,10 +281,12 @@ public class PlayerMovement : MonoBehaviour
     {
         isGrounded = false;
         isJumping = true;
+        jumpStartY = transform.position.y;
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         anim.SetTrigger("Jump");
         anim.SetBool("isGrounded", false);
     }
+
 
     void OnJumpUp()
     {
@@ -336,11 +365,19 @@ public class PlayerMovement : MonoBehaviour
     {
         if (c.gameObject.CompareTag("Ground") || c.gameObject.CompareTag("OneWayPlatform"))
         {
-            isGrounded = true;
-            isJumping = false;
-            lastGroundedTime = Time.time;
-            anim.SetBool("isGrounded", true);
-            canDash = true;
+
+            foreach (ContactPoint2D contact in c.contacts)
+            {
+                if (contact.normal.y > 0.5f) 
+                {
+                    isGrounded = true;
+                    isJumping = false;
+                    lastGroundedTime = Time.time;
+                    anim.SetBool("isGrounded", true);
+                    canDash = true;
+                    return; 
+                }
+            }
         }
     }
 
@@ -348,10 +385,20 @@ public class PlayerMovement : MonoBehaviour
     {
         if (c.gameObject.CompareTag("Ground") || c.gameObject.CompareTag("OneWayPlatform"))
         {
-            isGrounded = true;
-            lastGroundedTime = Time.time;
+            foreach (ContactPoint2D contact in c.contacts)
+            {
+                if (contact.normal.y > 0.5f)
+                {
+                    isGrounded = true;
+                    lastGroundedTime = Time.time;
+                    return;
+                }
+            }
+
+            isGrounded = false;
         }
     }
+
 
     void OnCollisionExit2D(Collision2D c)
     {

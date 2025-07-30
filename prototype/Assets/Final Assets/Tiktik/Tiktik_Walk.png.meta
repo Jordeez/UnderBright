@@ -1,0 +1,923 @@
+fileFormatVersion: 2
+guid: cab0e6b24ad875941bdfb5d2107ca296
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1315472039694946105
+    second: Tiktik_Walk_0
+  - first:
+      213: 4608614952598017625
+    second: Tiktik_Walk_1
+  - first:
+      213: -3692560462098675703
+    second: Tiktik_Walk_2
+  - first:
+      213: -5047397886264721615
+    second: Tiktik_Walk_3
+  - first:
+      213: -8399557096285105659
+    second: Tiktik_Walk_4
+  - first:
+      213: 4505171997177719709
+    second: Tiktik_Walk_5
+  - first:
+      213: 2625677978200690103
+    second: Tiktik_Walk_6
+  - first:
+      213: -2828458599518145787
+    second: Tiktik_Walk_7
+  - first:
+      213: -3787311271495495679
+    second: Tiktik_Walk_8
+  - first:
+      213: -4797020373662864040
+    second: Tiktik_Walk_9
+  - first:
+      213: -516957528323750967
+    second: Tiktik_Walk_10
+  - first:
+      213: -7866991895324988703
+    second: Tiktik_Walk_11
+  - first:
+      213: 8523709740639621428
+    second: Tiktik_Walk_12
+  - first:
+      213: 1188186992611579633
+    second: Tiktik_Walk_13
+  - first:
+      213: -7585320885214418392
+    second: Tiktik_Walk_14
+  - first:
+      213: -3099149758686260412
+    second: Tiktik_Walk_15
+  - first:
+      213: 5283803667270776084
+    second: Tiktik_Walk_16
+  - first:
+      213: 731271978973191167
+    second: Tiktik_Walk_17
+  - first:
+      213: 2414058080462120368
+    second: Tiktik_Walk_18
+  - first:
+      213: -4884467931017445658
+    second: Tiktik_Walk_19
+  - first:
+      213: 4723731095086810758
+    second: Tiktik_Walk_20
+  - first:
+      213: 4446760689771084717
+    second: Tiktik_Walk_21
+  - first:
+      213: 5814207101938337548
+    second: Tiktik_Walk_22
+  - first:
+      213: 8075367261654337421
+    second: Tiktik_Walk_23
+  - first:
+      213: -8871622978933116621
+    second: Tiktik_Walk_24
+  - first:
+      213: -3225674861444726909
+    second: Tiktik_Walk_25
+  - first:
+      213: 6896430328571842968
+    second: Tiktik_Walk_26
+  - first:
+      213: -2910761761488486267
+    second: Tiktik_Walk_27
+  - first:
+      213: -5608490826379947446
+    second: Tiktik_Walk_28
+  - first:
+      213: 6016008617778654719
+    second: Tiktik_Walk_29
+  - first:
+      213: 7932754283221995584
+    second: Tiktik_Walk_30
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Tiktik_Walk_0
+      rect:
+        serializedVersion: 2
+        x: 706
+        y: 8587
+        width: 582
+        height: 816
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93fc9f5b9de714210800000000000000
+      internalID: 1315472039694946105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Walk_1
+      rect:
+        serializedVersion: 2
+        x: 2705
+        y: 8581
+        width: 578
+        height: 818
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9569824c1e615ff30800000000000000
+      internalID: 4608614952598017625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Walk_2
+      rect:
+        serializedVersion: 2
+        x: 4700
+        y: 8575
+        width: 573
+        height: 816
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 908c4f0e2d361ccc0800000000000000
+      internalID: -3692560462098675703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Walk_3
+      rect:
+        serializedVersion: 2
+        x: 6699
+        y: 8574
+        width: 570
+        height: 811
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13f322d5d5a04f9b0800000000000000
+      internalID: -5047397886264721615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Walk_4
+      rect:
+        serializedVersion: 2
+        x: 8699
+        y: 8574
+        width: 566
+        height: 809
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 502905dd257ce6b80800000000000000
+      internalID: -8399557096285105659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Walk_5
+      rect:
+        serializedVersion: 2
+        x: 10693
+        y: 8575
+        width: 569
+        height: 808
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9ba0dfdf06958e30800000000000000
+      internalID: 4505171997177719709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Walk_6
+      rect:
+        serializedVersion: 2
+        x: 12688
+        y: 8579
+        width: 570
+        height: 806
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bdc731b538407420800000000000000
+      internalID: 2625677978200690103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Walk_7
+      rect:
+        serializedVersion: 2
+        x: 684
+        y: 6582
+        width: 573
+        height: 805
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50372d9b3eb4fb8d0800000000000000
+      internalID: -2828458599518145787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Walk_8
+      rect:
+        serializedVersion: 2
+        x: 2683
+        y: 6582
+        width: 574
+        height: 809
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1009da0f674c07bc0800000000000000
+      internalID: -3787311271495495679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Walk_9
+      rect:
+        serializedVersion: 2
+        x: 4683
+        y: 6580
+        width: 577
+        height: 815
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85d6387c26f8d6db0800000000000000
+      internalID: -4797020373662864040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Walk_10
+      rect:
+        serializedVersion: 2
+        x: 6684
+        y: 6579
+        width: 579
+        height: 820
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c38c40fdd563d8f0800000000000000
+      internalID: -516957528323750967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Walk_11
+      rect:
+        serializedVersion: 2
+        x: 8687
+        y: 6579
+        width: 581
+        height: 822
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1eae6446d84d2d290800000000000000
+      internalID: -7866991895324988703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Walk_12
+      rect:
+        serializedVersion: 2
+        x: 10692
+        y: 6579
+        width: 585
+        height: 823
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4319c5b39dc4a4670800000000000000
+      internalID: 8523709740639621428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Walk_13
+      rect:
+        serializedVersion: 2
+        x: 12699
+        y: 6579
+        width: 581
+        height: 823
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f65a5546c94d7010800000000000000
+      internalID: 1188186992611579633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Walk_14
+      rect:
+        serializedVersion: 2
+        x: 709
+        y: 4578
+        width: 574
+        height: 823
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82a6179f7d68bb690800000000000000
+      internalID: -7585320885214418392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Walk_15
+      rect:
+        serializedVersion: 2
+        x: 2706
+        y: 4576
+        width: 578
+        height: 823
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44394c7e6bb9df4d0800000000000000
+      internalID: -3099149758686260412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Walk_16
+      rect:
+        serializedVersion: 2
+        x: 4701
+        y: 4573
+        width: 580
+        height: 822
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 415b49ac077d35940800000000000000
+      internalID: 5283803667270776084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Walk_17
+      rect:
+        serializedVersion: 2
+        x: 6699
+        y: 4570
+        width: 580
+        height: 822
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffbd4ec8dfff52a00800000000000000
+      internalID: 731271978973191167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Walk_18
+      rect:
+        serializedVersion: 2
+        x: 8697
+        y: 4568
+        width: 576
+        height: 819
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b52b11b805708120800000000000000
+      internalID: 2414058080462120368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Walk_19
+      rect:
+        serializedVersion: 2
+        x: 10699
+        y: 4568
+        width: 570
+        height: 817
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6eefae6bb42e63cb0800000000000000
+      internalID: -4884467931017445658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Walk_20
+      rect:
+        serializedVersion: 2
+        x: 12699
+        y: 4568
+        width: 566
+        height: 815
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 686cd1157601e8140800000000000000
+      internalID: 4723731095086810758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Walk_21
+      rect:
+        serializedVersion: 2
+        x: 693
+        y: 2570
+        width: 569
+        height: 813
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dabf9f2994116bd30800000000000000
+      internalID: 4446760689771084717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Walk_22
+      rect:
+        serializedVersion: 2
+        x: 2688
+        y: 2575
+        width: 570
+        height: 810
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c078691ed8630b050800000000000000
+      internalID: 5814207101938337548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Walk_23
+      rect:
+        serializedVersion: 2
+        x: 4684
+        y: 2580
+        width: 573
+        height: 807
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d87c9b54db7711070800000000000000
+      internalID: 8075367261654337421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Walk_24
+      rect:
+        serializedVersion: 2
+        x: 6683
+        y: 2587
+        width: 574
+        height: 804
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 331bf7f87e9a1e480800000000000000
+      internalID: -8871622978933116621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Walk_25
+      rect:
+        serializedVersion: 2
+        x: 8683
+        y: 2584
+        width: 577
+        height: 811
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38ffdaacdc91c33d0800000000000000
+      internalID: -3225674861444726909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Walk_26
+      rect:
+        serializedVersion: 2
+        x: 10684
+        y: 2581
+        width: 579
+        height: 818
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89151c058da05bf50800000000000000
+      internalID: 6896430328571842968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Walk_27
+      rect:
+        serializedVersion: 2
+        x: 12687
+        y: 2581
+        width: 581
+        height: 820
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58040bc8995ea97d0800000000000000
+      internalID: -2910761761488486267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Walk_28
+      rect:
+        serializedVersion: 2
+        x: 692
+        y: 581
+        width: 585
+        height: 821
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a421697fe43aa22b0800000000000000
+      internalID: -5608490826379947446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Walk_29
+      rect:
+        serializedVersion: 2
+        x: 2699
+        y: 582
+        width: 581
+        height: 820
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffda264b6f72d7350800000000000000
+      internalID: 6016008617778654719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiktik_Walk_30
+      rect:
+        serializedVersion: 2
+        x: 4709
+        y: 586
+        width: 576
+        height: 816
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 040d7e5bdfdc61e60800000000000000
+      internalID: 7932754283221995584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Tiktik_Walk_0: 1315472039694946105
+      Tiktik_Walk_1: 4608614952598017625
+      Tiktik_Walk_10: -516957528323750967
+      Tiktik_Walk_11: -7866991895324988703
+      Tiktik_Walk_12: 8523709740639621428
+      Tiktik_Walk_13: 1188186992611579633
+      Tiktik_Walk_14: -7585320885214418392
+      Tiktik_Walk_15: -3099149758686260412
+      Tiktik_Walk_16: 5283803667270776084
+      Tiktik_Walk_17: 731271978973191167
+      Tiktik_Walk_18: 2414058080462120368
+      Tiktik_Walk_19: -4884467931017445658
+      Tiktik_Walk_2: -3692560462098675703
+      Tiktik_Walk_20: 4723731095086810758
+      Tiktik_Walk_21: 4446760689771084717
+      Tiktik_Walk_22: 5814207101938337548
+      Tiktik_Walk_23: 8075367261654337421
+      Tiktik_Walk_24: -8871622978933116621
+      Tiktik_Walk_25: -3225674861444726909
+      Tiktik_Walk_26: 6896430328571842968
+      Tiktik_Walk_27: -2910761761488486267
+      Tiktik_Walk_28: -5608490826379947446
+      Tiktik_Walk_29: 6016008617778654719
+      Tiktik_Walk_3: -5047397886264721615
+      Tiktik_Walk_30: 7932754283221995584
+      Tiktik_Walk_4: -8399557096285105659
+      Tiktik_Walk_5: 4505171997177719709
+      Tiktik_Walk_6: 2625677978200690103
+      Tiktik_Walk_7: -2828458599518145787
+      Tiktik_Walk_8: -3787311271495495679
+      Tiktik_Walk_9: -4797020373662864040
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
