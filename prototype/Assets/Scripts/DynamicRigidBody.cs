@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(RigidBody2D))]
 public class DynamicRigidBodBehaviour : MonoBehaviour
 {
     public float speed = 2f;
