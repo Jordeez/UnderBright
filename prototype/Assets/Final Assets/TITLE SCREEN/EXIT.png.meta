@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 4dda8c1d49e389246a8de170d063953b
+guid: 9b7fa5c9444b5ef46bd61b20ad5ca002
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3907359799785716603
-    second: GUBAT - Tree 04_0
+      213: 5641262046698284999
+    second: EXIT_0
+  - first:
+      213: 7504880719756844527
+    second: EXIT_1
+  - first:
+      213: -2808468025828081981
+    second: EXIT_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +43,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -46,7 +52,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -100,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GUBAT - Tree 04_0
+      name: EXIT_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1080
-        height: 1012
+        x: 79
+        y: 292
+        width: 20
+        height: 33
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +121,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b7b7edb290bb93630800000000000000
-      internalID: 3907359799785716603
+      spriteID: 7c7285a51f9c94e40800000000000000
+      internalID: 5641262046698284999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EXIT_1
+      rect:
+        serializedVersion: 2
+        x: 274
+        y: 197
+        width: 542
+        height: 357
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fedd8c68041b62860800000000000000
+      internalID: 7504880719756844527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EXIT_2
+      rect:
+        serializedVersion: 2
+        x: 643
+        y: 124
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ce797dd5315609d0800000000000000
+      internalID: -2808468025828081981
       vertices: []
       indices: 
       edges: []
@@ -125,7 +175,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      GUBAT - Tree 04_0: 3907359799785716603
+      EXIT_0: 5641262046698284999
+      EXIT_1: 7504880719756844527
+      EXIT_2: -2808468025828081981
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

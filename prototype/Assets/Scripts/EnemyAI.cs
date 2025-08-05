@@ -68,11 +68,11 @@ public class EnemyAI : MonoBehaviour
         //Flip the enemy based on direction
         if (goalPoint.transform.position.x > transform.position.x)
         {
-            transform.localScale = new Vector3(1, 1, 1);
+            transform.localScale = new Vector3(-0.5f, 0.5f, 1);
         }
         else
         {
-            transform.localScale = new Vector3(-1, 1, 1);
+            transform.localScale = new Vector3(0.5f, 0.5f, 1);
         }
         
         //Move towards the goal point

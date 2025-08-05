@@ -204,8 +204,8 @@ public class EnemyChase_Attack : MonoBehaviour
             rb.linearVelocity = new Vector2(direction.x * chaseSpeed, rb.linearVelocity.y);
 
             transform.localScale = new Vector3(
-                direction.x > 0 ? -1 : 1,
-                1,
+                direction.x > 0 ? -0.5f : 0.5f,
+                0.5f,
                 1);
         }
         else
